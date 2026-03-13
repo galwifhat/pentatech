@@ -9,6 +9,7 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 import CircuitCanvas from "../components/CircuitCanvas";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import CallToAction from "../components/CallToAction";
 import "../styles/pages.css";
 
 function WhyUsPage() {
@@ -118,6 +119,7 @@ function WhyUsPage() {
             </div>
           </div>
         </section>
+        <CallToAction />
       </main>
 
       <Footer />

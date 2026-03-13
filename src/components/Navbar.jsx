@@ -5,6 +5,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { NAV_LINKS } from "../data/content";
 import "../styles/navbar.css";
 
@@ -27,6 +28,21 @@ function Navbar() {
   const isActive = (path) => {
     if (path === "/") return location.pathname === "/";
     return location.pathname.startsWith(path);
+  };
+
+  const navigate = useNavigate();
+
+  const handleGetStartedClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate("/#contact");
+    }
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -65,7 +81,11 @@ function Navbar() {
           </Link>
         </li>
         <li>
-          <a href="/#contact" className="pt-navbar__cta">
+          <a
+            href="/#contact"
+            className="pt-navbar__cta"
+            onClick={handleGetStartedClick}
+          >
             Get Started
           </a>
         </li>
@@ -73,7 +93,7 @@ function Navbar() {
 
       {/* Mobile hamburger */}
       <button
-        className="pt-navbar__hamburger"
+        className={`pt-navbar__hamburger ${mobileMenuOpen ? "active" : ""}`}
         aria-label="Open menu"
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
       >

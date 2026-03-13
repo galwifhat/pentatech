@@ -4,37 +4,39 @@
 // ─────────────────────────────────────────────
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { SERVICES } from "../data/content";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import CircuitCanvas from "../components/CircuitCanvas";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/pages.css";
+import CallToAction from "../components/CallToAction";
 
 function ServicesPage() {
-  const sectionRef = useScrollReveal();
+  const pageRef = useScrollReveal();
 
   return (
     <>
       <CircuitCanvas />
       <Navbar />
 
-      <main className="pt-page">
+      <main className="pt-page" ref={pageRef}>
         {/* Hero Section */}
         <section className="pt-page-hero">
           <div className="container">
             <div className="pt-page-hero__content">
               <h1>Our Services</h1>
-              <p >Comprehensive IT solutions tailored to your business needs</p>
+              <p>Comprehensive IT solutions tailored to your business needs</p>
             </div>
           </div>
         </section>
 
         {/* Services Grid */}
-        <section className="pt-page-services" ref={sectionRef}>
+        <section className="pt-page-services">
           <div className="container">
             <div className="row">
-              {SERVICES.map((service, index) => (
+              {SERVICES.map((service) => (
                 <div key={service.title} className="col-lg-6 mb-4">
                   <div className="pt-page-service-card reveal">
                     <div className="pt-page-service-card__icon">
@@ -48,9 +50,12 @@ function ServicesPage() {
                         <li>✓ Expert consultants</li>
                         <li>✓ 24/7 support available</li>
                       </ul>
-                      <a href="/#contact" className="btn-primary-pt">
-                        Learn More
-                      </a>
+                      <Link
+                        to={`/services/${service.slug}`}
+                        className="btn-primary-pt"
+                      >
+                        Learn More →
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -95,6 +100,7 @@ function ServicesPage() {
             </div>
           </div>
         </section>
+        <CallToAction />
       </main>
 
       <Footer />

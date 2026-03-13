@@ -406,3 +406,271 @@
 .pt-page-hero--whyus {
   background: linear-gradient(135deg, var(--dark-navy), var(--navy));
 }
+
+.pt-page-training-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.pt-page-training-card-link:hover {
+  color: inherit;
+}
+
+.pt-page-training-card {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 39, 68, 0.8),
+    rgba(13, 21, 38, 0.9)
+  );
+  border: 1px solid rgba(201, 146, 42, 0.2);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.pt-page-training-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 40px rgba(201, 146, 42, 0.15);
+}
+
+.pt-page-training-card__icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  transition: transform var(--transition-normal);
+}
+
+.pt-page-training-card:hover .pt-page-training-card__icon {
+  transform: scale(1.1);
+}
+
+.pt-page-training-card h3 {
+  font-family: var(--font-display);
+  color: var(--gold);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.pt-page-training-card p {
+  color: rgba(240, 244, 255, 0.5);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.pt-page-training-card__badge {
+  position: absolute;
+  top: 12px;
+  right: -30px;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  color: var(--dark-navy);
+  padding: 4px 40px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  transform: rotate(45deg);
+  white-space: nowrap;
+}
+
+.pt-page-training-card__footer {
+  margin-top: auto;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all var(--transition-normal);
+}
+
+.pt-page-training-card:hover .pt-page-training-card__footer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pt-page-training-card__view-details {
+  font-size: 0.85rem;
+  color: var(--sky);
+  font-weight: 600;
+  display: inline-block;
+  position: relative;
+}
+
+.pt-page-training-card__view-details::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--sky);
+  transition: width var(--transition-normal);
+}
+
+.pt-page-training-card:hover .pt-page-training-card__view-details::after {
+  width: 100%;
+}
+
+/* Add these styles to your pages.css file */
+
+.pt-training-category {
+  padding: 40px 0;
+  border-bottom: 1px solid rgba(94, 184, 212, 0.1);
+}
+
+.pt-training-category:last-child {
+  border-bottom: none;
+}
+
+.pt-training-category__header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.pt-training-category__icon {
+  font-size: 2.5rem;
+  display: inline-block;
+  margin-bottom: 10px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.pt-training-category__title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.pt-training-category__description {
+  color: rgba(240, 244, 255, 0.6);
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pt-training-coming-soon {
+  text-align: center;
+  padding: 40px;
+  background: rgba(26, 39, 68, 0.3);
+  border-radius: 12px;
+  border: 1px dashed rgba(94, 184, 212, 0.3);
+}
+
+.pt-training-coming-soon p {
+  color: rgba(240, 244, 255, 0.5);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Update the training card styles */
+.pt-page-training-card {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 39, 68, 0.8),
+    rgba(13, 21, 38, 0.9)
+  );
+  border: 1px solid rgba(201, 146, 42, 0.2);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.pt-page-training-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 40px rgba(201, 146, 42, 0.15);
+}
+
+.pt-page-training-card__icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  transition: transform var(--transition-normal);
+}
+
+.pt-page-training-card:hover .pt-page-training-card__icon {
+  transform: scale(1.1);
+}
+
+.pt-page-training-card h3 {
+  font-family: var(--font-display);
+  color: var(--gold);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.pt-page-training-card p {
+  color: rgba(240, 244, 255, 0.5);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.pt-page-training-card__badge {
+  position: absolute;
+  top: 12px;
+  right: -30px;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  color: var(--dark-navy);
+  padding: 4px 40px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  transform: rotate(45deg);
+  white-space: nowrap;
+}
+
+.pt-page-training-card__footer {
+  margin-top: auto;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all var(--transition-normal);
+}
+
+.pt-page-training-card:hover .pt-page-training-card__footer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pt-page-training-card__view-details {
+  font-size: 0.85rem;
+  color: var(--sky);
+  font-weight: 600;
+  display: inline-block;
+  position: relative;
+}
+
+.pt-page-training-card__view-details::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--sky);
+  transition: width var(--transition-normal);
+}
+
+.pt-page-training-card:hover .pt-page-training-card__view-details::after {
+  width: 100%;
+}
+
+.pt-page-training-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.pt-page-training-card-link:hover {
+  color: inherit;
+}

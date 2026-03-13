@@ -17,9 +17,15 @@ import Loader from "./components/Loader";
 
 // Pages
 import HomePage from "./pages/HomePage";
+import AboutUsPage from "./pages/AboutUsPage";
 import ServicesPage from "./pages/ServicesPage";
+import ServiceDetailPage from "./pages/ServiceDetailPage";
 import TrainingPage from "./pages/TrainingPage";
+import TrainingCategoryPage from "./pages/TrainingCategoryPage";
 import WhyUsPage from "./pages/WhyUsPage";
+import CourseDetailPage from "./pages/CourseDetailPage";
+import PartnersPage from "./pages/PartnersPage"; 
+import BlogPage from "./pages/BlogPage";     
 
 function App() {
   return (
@@ -27,9 +33,21 @@ function App() {
       <Loader />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutUsPage />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/:serviceSlug" element={<ServiceDetailPage />}/>
         <Route path="/training" element={<TrainingPage />} />
+        <Route
+          path="/training/category/:category"
+          element={<TrainingCategoryPage />}
+        />
+        <Route
+          path="/training/course/:courseSlug"
+          element={<CourseDetailPage />}
+        />
         <Route path="/why-us" element={<WhyUsPage />} />
+        <Route path="/partners" element={<PartnersPage />} />
+        <Route path="/blog" element={<BlogPage />} />
       </Routes>
     </Router>
   );

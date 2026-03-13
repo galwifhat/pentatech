@@ -57,7 +57,11 @@ function Footer() {
               <ul>
                 {items.map((item) => (
                   <li key={item.name}>
-                    <Link to={item.link}>{item.name}</Link>
+                    {item.link.startsWith("mailto:") ? (
+                      <a href={item.link}>{item.name}</a>
+                    ) : (
+                      <Link to={item.link}>{item.name}</Link>
+                    )}
                   </li>
                 ))}
               </ul>

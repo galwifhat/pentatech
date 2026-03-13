@@ -1,0 +1,435 @@
+/* ─────────────────────────────────────────────
+   PentaTech — Service Detail Page Styles
+   ───────────────────────────────────────────── */
+
+.pt-service-detail {
+  padding-top: 80px;
+}
+
+/* ── Hero ── */
+.pt-service-hero {
+  background: linear-gradient(135deg, var(--mid-navy), var(--dark-navy));
+  padding: 60px 24px;
+  border-bottom: 1px solid rgba(94, 184, 212, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.pt-service-hero__content {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pt-service-hero__back {
+  display: inline-block;
+  color: var(--sky);
+  text-decoration: none;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+  transition: color var(--transition-fast);
+}
+
+.pt-service-hero__back:hover {
+  color: var(--gold);
+}
+
+.pt-service-hero__icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+  display: block;
+}
+
+.pt-service-hero__content h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+.pt-service-hero__tagline {
+  font-size: 1.15rem;
+  color: var(--sky);
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.pt-service-hero__description {
+  font-size: 1.05rem;
+  color: rgba(240, 244, 255, 0.75);
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto 32px;
+}
+
+/* ── Highlights Strip ── */
+.pt-service-highlights {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.pt-service-highlight {
+  background: rgba(26, 39, 68, 0.7);
+  border: 1px solid rgba(94, 184, 212, 0.25);
+  border-radius: 12px;
+  padding: 14px 20px;
+  text-align: center;
+  min-width: 150px;
+  backdrop-filter: blur(8px);
+}
+
+.pt-service-highlight__icon {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+.pt-service-highlight__value {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+
+.pt-service-highlight__label {
+  font-size: 0.72rem;
+  color: rgba(240, 244, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── Main Content Layout ── */
+.pt-service-content {
+  padding: 60px 24px;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Section headings ── */
+.pt-service-section {
+  margin-bottom: 50px;
+}
+
+.pt-service-section__title {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  color: var(--white);
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  position: relative;
+}
+
+.pt-service-section__title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--sky));
+  border-radius: 2px;
+}
+
+/* ── What We Offer Cards ── */
+.pt-service-offer-card {
+  background: rgba(26, 39, 68, 0.7);
+  border: 1px solid rgba(94, 184, 212, 0.15);
+  border-radius: 12px;
+  padding: 24px 22px;
+  height: 100%;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.pt-service-offer-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--sky));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-normal);
+}
+
+.pt-service-offer-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 146, 42, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.pt-service-offer-card:hover::before {
+  transform: scaleX(1);
+}
+
+.pt-service-offer-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.pt-service-offer-card p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgba(240, 244, 255, 0.65);
+  margin: 0;
+}
+
+/* ── Process Steps ── */
+.pt-service-process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.pt-service-process-step {
+  background: rgba(26, 39, 68, 0.6);
+  border: 1px solid rgba(94, 184, 212, 0.15);
+  border-radius: 12px;
+  padding: 28px 22px;
+  position: relative;
+  transition: border-color var(--transition-normal);
+}
+
+.pt-service-process-step:hover {
+  border-color: var(--gold);
+}
+
+.pt-service-process-step__number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.pt-service-process-step h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.pt-service-process-step p {
+  font-size: 0.875rem;
+  color: rgba(240, 244, 255, 0.55);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Outcomes ── */
+.pt-service-outcomes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pt-service-outcomes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.92rem;
+  color: rgba(240, 244, 255, 0.8);
+  line-height: 1.5;
+  background: rgba(26, 39, 68, 0.5);
+  border: 1px solid rgba(94, 184, 212, 0.1);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.pt-service-outcomes li::before {
+  content: "✓";
+  color: var(--gold);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Technologies ── */
+.pt-service-tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pt-service-tech-badge {
+  padding: 6px 16px;
+  background: rgba(94, 184, 212, 0.08);
+  border: 1px solid rgba(94, 184, 212, 0.2);
+  border-radius: 30px;
+  font-size: 0.82rem;
+  color: var(--sky);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.pt-service-tech-badge:hover {
+  background: rgba(94, 184, 212, 0.15);
+  border-color: var(--sky);
+  color: var(--white);
+}
+
+/* ── Case Study ── */
+.pt-service-case-study {
+  background: linear-gradient(
+    135deg,
+    rgba(201, 146, 42, 0.08),
+    rgba(94, 184, 212, 0.08)
+  );
+  border: 1px solid rgba(201, 146, 42, 0.3);
+  border-radius: 16px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pt-service-case-study::before {
+  content: "❝";
+  position: absolute;
+  top: 10px;
+  right: 24px;
+  font-size: 6rem;
+  color: rgba(201, 146, 42, 0.07);
+  font-family: serif;
+  line-height: 1;
+}
+
+.pt-service-case-study__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.pt-service-case-study__client {
+  font-size: 0.85rem;
+  color: var(--sky);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.pt-service-case-study__result {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(240, 244, 255, 0.85);
+  margin: 0;
+}
+
+/* ── Sidebar ── */
+.pt-service-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.pt-service-sidebar-card {
+  background: rgba(26, 39, 68, 0.85);
+  border: 1px solid rgba(201, 146, 42, 0.2);
+  border-radius: 14px;
+  padding: 26px 22px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.pt-service-sidebar-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.pt-service-sidebar-card p {
+  font-size: 0.88rem;
+  color: rgba(240, 244, 255, 0.65);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Related services */
+.pt-service-related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pt-service-related-list li {
+  border-bottom: 1px solid rgba(94, 184, 212, 0.08);
+}
+
+.pt-service-related-list li:last-child {
+  border-bottom: none;
+}
+
+.pt-service-related-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  color: rgba(240, 244, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color var(--transition-fast);
+}
+
+.pt-service-related-list a:hover {
+  color: var(--gold);
+}
+
+.pt-service-related-list a span {
+  color: var(--sky);
+  font-size: 0.85rem;
+}
+
+/* CTA buttons */
+.pt-service-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pt-service-cta .btn-primary-pt,
+.pt-service-cta .btn-secondary-pt {
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .pt-service-sidebar {
+    margin-top: 30px;
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .pt-service-outcomes {
+    grid-template-columns: 1fr;
+  }
+
+  .pt-service-hero__content h1 {
+    font-size: 1.9rem;
+  }
+
+  .pt-service-highlights {
+    justify-content: flex-start;
+  }
+}

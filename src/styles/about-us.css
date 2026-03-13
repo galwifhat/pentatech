@@ -1,0 +1,428 @@
+/* ─────────────────────────────────────────────
+   PentaTech — About Us Page Styles
+   ───────────────────────────────────────────── */
+
+/* Hero Section */
+.pt-about-hero {
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--dark-navy), var(--mid-navy));
+  border-bottom: 1px solid rgba(94, 184, 212, 0.2);
+  padding: 100px 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.pt-about-hero__content {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 3;
+}
+
+.pt-about-hero__content h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pt-about-hero__content p {
+  font-size: 1.2rem;
+  color: rgba(240, 244, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Introduction Section */
+.pt-about-intro {
+  padding: 80px 24px;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-about-intro__text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(240, 244, 255, 0.8);
+  margin-bottom: 30px;
+}
+
+.pt-about-intro__text:last-child {
+  margin-bottom: 0;
+}
+
+/* Mission & Vision Cards */
+.pt-about-mission-vision {
+  padding: 60px 24px;
+  background: var(--mid-navy);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-about-card {
+  background: rgba(26, 39, 68, 0.95);
+  border: 1px solid rgba(94, 184, 212, 0.3);
+  border-radius: 16px;
+  padding: 40px 32px;
+  height: 100%;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 3;
+}
+
+.pt-about-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.pt-about-card__icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.pt-about-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.pt-about-card p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(240, 244, 255, 0.9);
+  margin: 0;
+}
+
+/* Stats Section */
+.pt-about-stats {
+  padding: 60px 24px;
+  background: var(--dark-navy);
+  border-top: 1px solid rgba(94, 184, 212, 0.15);
+  border-bottom: 1px solid rgba(94, 184, 212, 0.15);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-about-stat {
+  text-align: center;
+  padding: 20px;
+  background: rgba(26, 39, 68, 0.6);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 3;
+}
+
+.pt-about-stat__number {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.pt-about-stat__label {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(240, 244, 255, 0.8);
+}
+
+/* What We Do Section */
+.pt-about-what-we-do {
+  padding: 80px 24px;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-about-what-we-do__text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(240, 244, 255, 0.9);
+}
+
+.pt-about-services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 20px;
+}
+
+.pt-about-service-tag {
+  background: rgba(26, 39, 68, 0.9);
+  border: 1px solid rgba(201, 146, 42, 0.4);
+  border-radius: 50px;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--sky);
+  transition: all var(--transition-normal);
+}
+
+.pt-about-service-tag:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-3px);
+}
+
+/* Why Choose Us Section */
+.pt-about-why-us {
+  padding: 80px 24px;
+  background: var(--mid-navy);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-about-why-card {
+  background: rgba(26, 39, 68, 0.9);
+  border: 1px solid rgba(94, 184, 212, 0.25);
+  border-radius: 12px;
+  padding: 28px 24px;
+  height: 100%;
+  transition: all var(--transition-normal);
+  position: relative;
+  z-index: 3;
+}
+
+.pt-about-why-card:hover {
+  transform: translateX(8px);
+  border-color: var(--gold);
+  background: rgba(26, 39, 68, 0.95);
+}
+
+.pt-about-why-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.pt-about-why-card p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(240, 244, 255, 0.8);
+  margin: 0;
+}
+
+/* Approach Section */
+.pt-about-approach {
+  padding: 80px 24px;
+  background: var(--dark-navy);
+  border-top: 1px solid rgba(94, 184, 212, 0.1);
+  border-bottom: 1px solid rgba(94, 184, 212, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-about-approach__text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(240, 244, 255, 0.9);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Values Section */
+.pt-about-values {
+  padding: 80px 24px;
+  background: var(--mid-navy);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-about-value-card {
+  text-align: center;
+  padding: 32px 24px;
+  background: rgba(26, 39, 68, 0.9);
+  border: 1px solid rgba(201, 146, 42, 0.3);
+  border-radius: 12px;
+  height: 100%;
+  transition: all var(--transition-normal);
+  position: relative;
+  z-index: 3;
+}
+
+.pt-about-value-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 40px rgba(201, 146, 42, 0.15);
+}
+
+.pt-about-value-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--gold);
+  margin-bottom: 15px;
+}
+
+.pt-about-value-card p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(240, 244, 255, 0.8);
+  margin: 0;
+}
+
+/* Leadership Team */
+.pt-about-leadership {
+  padding: 80px 24px;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-about-team-card {
+  text-align: center;
+  padding: 32px 24px;
+  background: rgba(26, 39, 68, 0.9);
+  border: 1px solid rgba(94, 184, 212, 0.25);
+  border-radius: 16px;
+  height: 100%;
+  transition: all var(--transition-normal);
+  position: relative;
+  z-index: 3;
+}
+
+.pt-about-team-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+}
+
+.pt-about-team-card__avatar {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin: 0 auto 20px;
+}
+
+.pt-about-team-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.pt-about-team-card__role {
+  font-size: 0.9rem;
+  color: var(--sky);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.pt-about-team-card__expertise {
+  font-size: 0.85rem;
+  color: rgba(240, 244, 255, 0.6);
+  margin-bottom: 15px;
+}
+
+.pt-about-team-card__bio {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(240, 244, 255, 0.7);
+  margin: 0;
+}
+
+/* Closing Section */
+.pt-about-closing {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, var(--mid-navy), var(--dark-navy));
+  border-top: 1px solid rgba(201, 146, 42, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-about-closing__content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 3;
+}
+
+.pt-about-closing__content h2 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.pt-about-closing__content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(240, 244, 255, 0.9);
+  margin-bottom: 30px;
+}
+
+.pt-about-closing__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.pt-about-closing__cta-description {
+  font-size: 1rem;
+  color: rgba(240, 244, 255, 0.7);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pt-about-services-grid {
+    grid-template-columns: 1fr;
+    margin-top: 30px;
+  }
+
+  .pt-about-card {
+    padding: 30px 24px;
+  }
+
+  .pt-about-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .pt-about-stat__number {
+    font-size: 2.2rem;
+  }
+
+  .pt-about-closing__content h2 {
+    font-size: 2rem;
+  }
+
+  .pt-about-closing__cta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pt-about-stat {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .pt-about-why-card:hover {
+    transform: translateY(-5px);
+  }
+}

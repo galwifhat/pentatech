@@ -4,18 +4,22 @@
 // ─────────────────────────────────────────────
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { SERVICES } from "../data/content";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import "../styles/services.css";
 
-function ServiceCard({ icon, title, description }) {
+function ServiceCard({ icon, title, description, slug }) {
   return (
     <div className="col-12 col-md-6 col-lg-3 mb-4 reveal">
-      <div className="pt-services__card">
-        <div className="pt-services__icon">{icon}</div>
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
+      <Link to={`/services/${slug}`} className="pt-services__card-link">
+        <div className="pt-services__card">
+          <div className="pt-services__icon">{icon}</div>
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <span className="pt-services__learn-more">Learn More →</span>
+        </div>
+      </Link>
     </div>
   );
 }
