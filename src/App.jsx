@@ -14,6 +14,7 @@ import "./styles/animations.css";
 
 // Components
 import Loader from "./components/Loader";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -31,6 +32,7 @@ import BlogPage from "./pages/BlogPage";
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Loader />
       <Routes>
         <Route path="/" element={<HomePage />} />
