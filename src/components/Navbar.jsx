@@ -4,8 +4,8 @@
 // ─────────────────────────────────────────────
 
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { NAV_LINKS } from "../data/content";
+import { Link, useLocation } from "react-router-dom";
+// import { NAV_LINKS } from "../data/content";
 import "../styles/navbar.css";
 
 function Navbar() {
