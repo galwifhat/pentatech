@@ -1,0 +1,186 @@
+/* ─────────────────────────────────────────────
+   PentaTech — Navbar Styles
+   ───────────────────────────────────────────── */
+
+.pt-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 60px;
+  background: rgba(13, 21, 38, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(94, 184, 212, 0.15);
+  animation: slideDown 0.8s ease forwards;
+  transition: padding var(--transition-fast);
+}
+
+.pt-navbar.scrolled {
+  padding: 12px 60px;
+}
+
+/* ── Logo ── */
+.pt-navbar__logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: var(--white);
+}
+
+.pt-navbar__logo span {
+  color: var(--gold);
+}
+
+/* ── Nav Links ── */
+.pt-navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pt-navbar__links a {
+  color: rgba(240, 244, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+.pt-navbar__links a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width var(--transition-normal);
+}
+
+.pt-navbar__links a:hover {
+  color: var(--gold);
+}
+
+.pt-navbar__links a:hover::after {
+  width: 100%;
+}
+
+/* Active link style - SINGLE DEFINITION */
+.pt-navbar__links a.active {
+  color: var(--gold);
+}
+
+.pt-navbar__links a.active::after {
+  width: 100%;
+}
+
+/* ── CTA Nav Button ── */
+.pt-navbar__cta {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--dark-navy) !important;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-weight: 700 !important;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-normal) !important;
+  letter-spacing: 1px;
+}
+
+.pt-navbar__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--glow-gold);
+  color: var(--dark-navy) !important;
+}
+
+.pt-navbar__cta::after {
+  display: none !important;
+}
+
+/* ── Mobile hamburger ── */
+.pt-navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.pt-navbar__hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all var(--transition-fast);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .pt-navbar {
+    padding: 16px 24px;
+  }
+
+  .pt-navbar.scrolled {
+    padding: 12px 24px;
+  }
+
+  /* Mobile menu styles */
+  .pt-navbar__links {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: rgba(13, 21, 38, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+    transform: translateY(-150%);
+    transition: transform 0.3s ease;
+    border-bottom: 1px solid rgba(94, 184, 212, 0.2);
+  }
+
+  .pt-navbar__links.active {
+    transform: translateY(0);
+  }
+
+  .pt-navbar__hamburger {
+    display: flex;
+  }
+
+  .pt-navbar__hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .pt-navbar__hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .pt-navbar__hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  /* Active link styles in mobile - these will override the desktop styles */
+  .pt-navbar__links a.active {
+    color: var(--gold);
+  }
+
+  .pt-navbar__links a.active::after {
+    width: 100%;
+  }
+}

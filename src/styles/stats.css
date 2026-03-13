@@ -1,0 +1,58 @@
+/* ─────────────────────────────────────────────
+   PentaTech — Stats Strip Styles
+   ───────────────────────────────────────────── */
+
+.pt-stats {
+  position: relative;
+  z-index: 1;
+  background: rgba(26, 39, 68, 0.7);
+  border-top: 1px solid rgba(94, 184, 212, 0.15);
+  border-bottom: 1px solid rgba(94, 184, 212, 0.15);
+  padding: 40px 60px;
+  backdrop-filter: blur(10px);
+}
+
+.pt-stats__item {
+  text-align: center;
+  padding: 10px;
+  border-right: 1px solid rgba(94, 184, 212, 0.1);
+}
+
+.pt-stats__item:last-child {
+  border-right: none;
+}
+
+.pt-stats__number {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.pt-stats__label {
+  font-size: 0.82rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(240, 244, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .pt-stats {
+    padding: 30px 24px;
+  }
+
+  .pt-stats__item {
+    border-right: none;
+    border-bottom: 1px solid rgba(94, 184, 212, 0.1);
+    padding: 16px 0;
+  }
+
+  .pt-stats__item:last-child {
+    border-bottom: none;
+  }
+}
