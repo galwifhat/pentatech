@@ -239,9 +239,9 @@ export const SOCIAL_LINKS = [
 
 export const CONTACT_INFO = {
   email: "info@pentatech.co.ke",
-  phone: "+254 700 000 000",
+  phone: "+14793353453",
   address: "Nairobi, Kenya",
-  whatsapp: "https://wa.me/254700000000",
+  whatsapp: "https://wa.me/14793353453",
 };
 
 export const CUBE_FACES = ["☁️", "🔐", "💻", "📊", "🌐", "⚙️"];
