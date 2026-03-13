@@ -1,6 +1,8 @@
 # PentaTech Consultancy Limited — Corporate Website
 
-A professional multi-page React-based website for PentaTech Consultancy Limited, featuring comprehensive IT services, training programs, blog, and company information.
+A professional multi-page React-based website for PentaTech Consultancy Limited, featuring comprehensive IT services, training programs, blog, and company information. 
+
+[PentaTech Website] (https://pentatech-six.vercel.app/)
 
 ## 🗂 Project Structure
 
