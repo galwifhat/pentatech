@@ -76,15 +76,13 @@ npm install
 npm start
 ```
 
-📦 Key Features
-Multi-Page Architecture
+## 📦 Key Features
+### Multi-Page Architecture
 11 distinct pages with React Router
-
 Dynamic routes for services and courses
-
 SEO-friendly URLs
 
-Core Sections
+### Core Sections
 Home - Landing page with 3D cube animation
 
 About Us - Company history, mission, vision, leadership
@@ -101,7 +99,7 @@ Blog - Articles with category filtering
 
 Contact - Form with validation and contact information
 
-Interactive Features
+### Interactive Features
 Animated circuit board background (Canvas API)
 
 Scroll reveal animations
@@ -116,7 +114,7 @@ Form validation
 
 Category filtering (Blog, Training)
 
-🛠 Tech Stack
+### 🛠 Tech Stack
 React 18 — Component framework with Router
 
 React Router DOM 7 — Multi-page routing
@@ -131,36 +129,32 @@ Canvas API — Animated circuit board background
 
 Intersection Observer — Scroll animations
 
-📱 Pages Overview
-Page Route Description
-Home / Landing page with hero and sections
-About Us /about Company information, leadership
-Services /services IT services overview
-Service Detail /services/:slug Individual service details
-Training /training Training programs overview
-Training Category /training/category/:category Category-based training
-Course Detail /training/course/:slug Individual course details
-Why Us /why-us Values and team
-Partners /partners Technology partners
-Contact /contact Contact form and info
-Blog /blog Articles with filters
+## Pages & Routes
+
+| Page | Route | Description |
+|-----|-----|-----|
+| Home | `/` | Landing page with hero and sections |
+| About Us | `/about` | Company information, leadership |
+| Services | `/services` | IT services overview |
+| Service Detail | `/services/:slug` | Individual service details |
+| Training | `/training` | Training programs overview |
+| Training Category | `/training/category/:category` | Category-based training |
+| Course Detail | `/training/course/:slug` | Individual course details |
+| Why Us | `/why-us` | Values and team |
+| Partners | `/partners` | Technology partners |
+| Contact | `/contact` | Contact form and info |
+| Blog | `/blog` | Articles with filters |
 
 ## Development
+### Run development server
 
-`
+```npm start```
 
-# Run development server
+### Build for production
 
-npm start
+```npm run build```
 
-# Build for production
+### Run tests
 
-npm run build
-
-# Run tests
-
-npm test
-
-`
-
+```npm test```
 The project has evolved from a single landing page to a full-featured corporate website with comprehensive content management, multi-page navigation, and interactive features.
