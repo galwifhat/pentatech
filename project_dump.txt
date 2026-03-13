@@ -17858,24 +17858,31 @@ import "./styles/animations.css";
 
 // Components
 import Loader from "./components/Loader";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Pages
 import HomePage from "./pages/HomePage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ServicesPage from "./pages/ServicesPage";
+import ServiceDetailPage from "./pages/ServiceDetailPage";
 import TrainingPage from "./pages/TrainingPage";
 import TrainingCategoryPage from "./pages/TrainingCategoryPage";
 import WhyUsPage from "./pages/WhyUsPage";
 import CourseDetailPage from "./pages/CourseDetailPage";
+import PartnersPage from "./pages/PartnersPage"; 
+import ContactPage from "./pages/ContactPage";
+import BlogPage from "./pages/BlogPage";     
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Loader />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/:serviceSlug" element={<ServiceDetailPage />} />
         <Route path="/training" element={<TrainingPage />} />
         <Route
           path="/training/category/:category"
@@ -17886,6 +17893,9 @@ function App() {
           element={<CourseDetailPage />}
         />
         <Route path="/why-us" element={<WhyUsPage />} />
+        <Route path="/partners" element={<PartnersPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/blog" element={<BlogPage />} />
       </Routes>
     </Router>
   );
@@ -17932,13 +17942,9 @@ function CallToAction() {
             </p>
 
             <div className="pt-cta__buttons reveal">
-              <a
-                href={`mailto:${CONTACT_INFO.email}`}
-                className="btn-primary-pt"
-                aria-label={`Email us at ${CONTACT_INFO.email}`}
-              >
+              <Link to="/contact" className="btn-primary-pt">
                 📧 Contact Us Today
-              </a>
+              </Link>
               <a
                 href={CONTACT_INFO.whatsapp}
                 className="btn-secondary-pt"
@@ -18425,6 +18431,28 @@ function Navbar() {
 export default Navbar;
 
 ====================================================
+FILE: ./src/components/ScrollToTop.jsx
+====================================================
+// ─────────────────────────────────────────────
+//  Component: ScrollToTop
+// ─────────────────────────────────────────────
+
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
+
+  return null;
+}
+
+export default ScrollToTop;
+
+====================================================
 FILE: ./src/components/Services.jsx
 ====================================================
 // ─────────────────────────────────────────────
@@ -18433,18 +18461,22 @@ FILE: ./src/components/Services.jsx
 // ─────────────────────────────────────────────
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { SERVICES } from "../data/content";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import "../styles/services.css";
 
-function ServiceCard({ icon, title, description }) {
+function ServiceCard({ icon, title, description, slug }) {
   return (
     <div className="col-12 col-md-6 col-lg-3 mb-4 reveal">
-      <div className="pt-services__card">
-        <div className="pt-services__icon">{icon}</div>
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
+      <Link to={`/services/${slug}`} className="pt-services__card-link">
+        <div className="pt-services__card">
+          <div className="pt-services__icon">{icon}</div>
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <span className="pt-services__learn-more">Learn More →</span>
+        </div>
+      </Link>
     </div>
   );
 }
@@ -18836,6 +18868,180 @@ export const COMPANY_CLOSING = ABOUT_US.closing;
 export const COMPANY_LEADERSHIP = ABOUT_US.leadership;
 export const COMPANY_STATS = ABOUT_US.stats;
 export const COMPANY_VALUES = ABOUT_US.values;
+====================================================
+FILE: ./src/data/blog-content.js
+====================================================
+// ─────────────────────────────────────────────
+//  PentaTech — Blog Page Content
+// ─────────────────────────────────────────────
+
+export const BLOG = {
+  hero: {
+    title: "PentaTech Blog",
+    subtitle:
+      "Insights, tutorials, and industry news from our team of certified technology experts.",
+  },
+
+  categories: [
+    "All",
+    "Cloud",
+    "Cybersecurity",
+    "DevOps",
+    "Training",
+    "AI & Data",
+  ],
+
+  posts: [
+    {
+      id: "zero-trust-east-africa",
+      slug: "zero-trust-security-east-africa",
+      title:
+        "Zero Trust Security: Why East African Enterprises Can't Afford to Wait",
+      excerpt:
+        "Perimeter-based security is dead. We break down the Zero Trust model and why adopting it is now a business imperative — not just a best practice — for organisations operating in Kenya and beyond.",
+      category: "Cybersecurity",
+      date: "March 5, 2026",
+      readTime: "8 min read",
+      author: {
+        name: "Sarah Wanjiku",
+        role: "Head of Cybersecurity",
+        avatar: "👩‍💻",
+      },
+      tags: ["Zero Trust", "Enterprise Security", "Kenya"],
+      featured: true,
+    },
+    {
+      id: "azure-vs-aws-2026",
+      slug: "azure-vs-aws-africa-2026",
+      title: "Azure vs AWS in Africa: Which Cloud Platform Wins in 2026?",
+      excerpt:
+        "With Microsoft and AWS both expanding their African infrastructure, we compare pricing, latency, compliance, and support to help you make the right call for your organisation.",
+      category: "Cloud",
+      date: "February 20, 2026",
+      readTime: "11 min read",
+      author: {
+        name: "Dr. James Kimani",
+        role: "CTO & Cloud Architect",
+        avatar: "👨‍💻",
+      },
+      tags: ["Azure", "AWS", "Cloud Strategy"],
+      featured: true,
+    },
+    {
+      id: "kubernetes-beginners",
+      slug: "kubernetes-beginners-guide-2026",
+      title: "Kubernetes Demystified: A Practical Beginner's Guide for 2026",
+      excerpt:
+        "Containers are table stakes. Orchestration is where the real power lies. This step-by-step guide walks you from zero to running your first Kubernetes cluster — with real-world examples.",
+      category: "DevOps",
+      date: "February 10, 2026",
+      readTime: "14 min read",
+      author: {
+        name: "Michael Ochieng",
+        role: "Senior DevOps Consultant",
+        avatar: "👨‍🔧",
+      },
+      tags: ["Kubernetes", "Docker", "DevOps"],
+      featured: false,
+    },
+    {
+      id: "ai-jobs-africa",
+      slug: "ai-reshaping-tech-jobs-africa",
+      title:
+        "How AI Is Reshaping Tech Jobs in Africa — And What to Do About It",
+      excerpt:
+        "Generative AI is automating tasks, not eliminating roles. We explore which skills are rising in demand, which are declining, and the certifications that will keep you ahead of the curve.",
+      category: "AI & Data",
+      date: "January 28, 2026",
+      readTime: "9 min read",
+      author: {
+        name: "Grace Mwende",
+        role: "Training Lead",
+        avatar: "👩‍🏫",
+      },
+      tags: ["AI", "Career", "Upskilling"],
+      featured: false,
+    },
+    {
+      id: "pmp-certification-guide",
+      slug: "pmp-certification-guide-2026",
+      title: "Your Complete 2026 PMP Certification Roadmap",
+      excerpt:
+        "PMP remains the world's most recognised project management credential. Here's everything you need — eligibility, application, exam strategy, and study resources — in one place.",
+      category: "Training",
+      date: "January 15, 2026",
+      readTime: "12 min read",
+      author: {
+        name: "Grace Mwende",
+        role: "Training Lead",
+        avatar: "👩‍🏫",
+      },
+      tags: ["PMP", "Certification", "Project Management"],
+      featured: false,
+    },
+    {
+      id: "devsecops-culture",
+      slug: "building-devsecops-culture",
+      title:
+        "Building a DevSecOps Culture: Security as a Shared Responsibility",
+      excerpt:
+        "Bolting security on at the end of the SDLC is a recipe for breaches. We share the frameworks, tools, and mindset shifts needed to embed security into every stage of your pipeline.",
+      category: "DevOps",
+      date: "January 3, 2026",
+      readTime: "10 min read",
+      author: {
+        name: "Sarah Wanjiku",
+        role: "Head of Cybersecurity",
+        avatar: "👩‍💻",
+      },
+      tags: ["DevSecOps", "SDLC", "Security"],
+      featured: false,
+    },
+    {
+      id: "cloud-cost-optimisation",
+      slug: "cloud-cost-optimisation-strategies",
+      title: "8 Cloud Cost Optimisation Strategies That Actually Work",
+      excerpt:
+        "Cloud bills spiralling out of control? You're not alone. Our architects share the tactics — from right-sizing to Reserved Instances to FinOps tooling — that have saved our clients millions.",
+      category: "Cloud",
+      date: "December 18, 2025",
+      readTime: "7 min read",
+      author: {
+        name: "Dr. James Kimani",
+        role: "CTO & Cloud Architect",
+        avatar: "👨‍💻",
+      },
+      tags: ["FinOps", "Cloud Costs", "AWS", "Azure"],
+      featured: false,
+    },
+    {
+      id: "python-data-analysis",
+      slug: "python-data-analysis-business",
+      title: "Python for Business Data Analysis: A No-Fluff Guide",
+      excerpt:
+        "You don't need a data science degree to extract business value from your data. This guide walks through pandas, matplotlib, and real-world datasets to give you actionable skills fast.",
+      category: "AI & Data",
+      date: "December 5, 2025",
+      readTime: "13 min read",
+      author: {
+        name: "Grace Mwende",
+        role: "Training Lead",
+        avatar: "👩‍🏫",
+      },
+      tags: ["Python", "Data Analysis", "Business Intelligence"],
+      featured: false,
+    },
+  ],
+
+  newsletter: {
+    title: "Stay Ahead of the Curve",
+    description:
+      "Get our latest articles, training guides, and industry insights delivered to your inbox — no spam, unsubscribe any time.",
+    placeholder: "Enter your email address",
+    cta: "Subscribe Free",
+  },
+};
+
 ====================================================
 FILE: ./src/data/content.js
 ====================================================
@@ -19739,7 +19945,8 @@ export const CUBE_FACES = ["☁️", "🔐", "💻", "📊", "🌐", "⚙️"];
 export const TRAINING_CATEGORIES = {
   corporate: {
     title: "Corporate Training",
-    description: "Custom training solutions designed for organizations to upskill their teams and drive business growth.",
+    description:
+      "Custom training solutions designed for organizations to upskill their teams and drive business growth.",
     icon: "🏢",
     programs: [TRAINING_PROGRAMS[5]], // Corporate Programs
     features: [
@@ -19747,12 +19954,13 @@ export const TRAINING_CATEGORIES = {
       "On-site or virtual delivery",
       "Team-based learning",
       "Progress tracking",
-      "Post-training support"
-    ]
+      "Post-training support",
+    ],
   },
   bootcamps: {
     title: "Tech Bootcamps",
-    description: "Intensive, immersive training programs designed to quickly upskill individuals and teams in specific technologies.",
+    description:
+      "Intensive, immersive training programs designed to quickly upskill individuals and teams in specific technologies.",
     icon: "⚡",
     programs: [TRAINING_PROGRAMS[6]], // Bootcamps
     features: [
@@ -19760,12 +19968,13 @@ export const TRAINING_CATEGORIES = {
       "Real-world projects",
       "Industry expert instructors",
       "Career guidance",
-      "Portfolio development"
-    ]
+      "Portfolio development",
+    ],
   },
   workshops: {
     title: "Workshops & Seminars",
-    description: "Short-term focused training sessions on specific technologies, tools, and methodologies.",
+    description:
+      "Short-term focused training sessions on specific technologies, tools, and methodologies.",
     icon: "🎯",
     programs: [], // You can add workshop-specific programs here
     features: [
@@ -19773,32 +19982,33 @@ export const TRAINING_CATEGORIES = {
       "Hands-on exercises",
       "Expert-led discussions",
       "Networking opportunities",
-      "Take-home materials"
+      "Take-home materials",
     ],
     upcomingWorkshops: [
       {
         title: "Cloud Strategy Workshop",
         date: "April 15, 2024",
         duration: "2 days",
-        description: "Strategic planning for cloud adoption and migration"
+        description: "Strategic planning for cloud adoption and migration",
       },
       {
         title: "Cybersecurity Awareness Seminar",
         date: "April 22, 2024",
         duration: "1 day",
-        description: "Essential security practices for modern organizations"
+        description: "Essential security practices for modern organizations",
       },
       {
         title: "Agile Leadership Workshop",
         date: "May 5, 2024",
         duration: "3 days",
-        description: "Leading agile teams and transformations"
-      }
-    ]
+        description: "Leading agile teams and transformations",
+      },
+    ],
   },
   curriculum: {
     title: "Curriculum Design Services",
-    description: "Professional learning content development for educational institutions, training providers, and corporate L&D departments.",
+    description:
+      "Professional learning content development for educational institutions, training providers, and corporate L&D departments.",
     icon: "📝",
     programs: [TRAINING_PROGRAMS[7]], // Curriculum Design
     features: [
@@ -19806,16 +20016,16 @@ export const TRAINING_CATEGORIES = {
       "Custom content development",
       "Hands-on lab design",
       "Assessment creation",
-      "Instructor materials"
+      "Instructor materials",
     ],
     process: [
       "Discovery & Requirements Gathering",
       "Curriculum Architecture Design",
       "Content Development",
       "Review & Iteration",
-      "Final Delivery & Training"
-    ]
-  }
+      "Final Delivery & Training",
+    ],
+  },
 };
 
 // You can also add more categories as needed
@@ -19823,8 +20033,986 @@ export const WORKSHOP_TYPES = {
   technical: "Technical Workshops",
   leadership: "Leadership & Management",
   softSkills: "Professional Skills",
-  certification: "Certification Prep"
+  certification: "Certification Prep",
 };
+
+====================================================
+FILE: ./src/data/partners-content.js
+====================================================
+// ─────────────────────────────────────────────
+//  PentaTech — Partners Page Content
+// ─────────────────────────────────────────────
+
+export const PARTNERS = {
+  hero: {
+    title: "Our Partners",
+    subtitle:
+      "We collaborate with world-class technology leaders to deliver best-in-class solutions to our clients.",
+  },
+
+  intro:
+    "PentaTech's strength lies in the alliances we've forged with the industry's most innovative technology companies. These partnerships allow us to offer certified expertise, access to cutting-edge tools, and preferred pricing — ensuring our clients always receive the highest standard of service.",
+
+  tiers: [
+    {
+      tier: "Strategic Partners",
+      description:
+        "Our deepest relationships — joint go-to-market programs, co-delivered solutions, and shared engineering resources.",
+      partners: [
+        {
+          name: "Microsoft",
+          logo: "🪟",
+          category: "Cloud & Productivity",
+          description:
+            "Gold Microsoft Partner delivering Azure cloud architecture, Microsoft 365 deployment, and enterprise identity management across East Africa.",
+          badges: ["Azure", "Microsoft 365", "Gold Certified"],
+          url: "https://microsoft.com",
+        },
+        {
+          name: "Amazon Web Services",
+          logo: "☁️",
+          category: "Cloud Infrastructure",
+          description:
+            "AWS Select Tier Partner specialising in cloud migration, serverless architectures, and cost-optimised AWS infrastructure design.",
+          badges: ["AWS Select", "Cloud Migration", "DevOps"],
+          url: "https://aws.amazon.com",
+        },
+        {
+          name: "Cisco",
+          logo: "🔗",
+          category: "Networking & Security",
+          description:
+            "Authorised Cisco partner for enterprise networking, CCNA/CCNP training delivery, and cybersecurity infrastructure deployment.",
+          badges: ["Authorised Partner", "Networking", "Security"],
+          url: "https://cisco.com",
+        },
+      ],
+    },
+    {
+      tier: "Technology Partners",
+      description:
+        "Integrated technology alliances that extend our service capabilities and training curriculum.",
+      partners: [
+        {
+          name: "Google Cloud",
+          logo: "🌐",
+          category: "Cloud Platform",
+          description:
+            "Google Cloud Partner offering GCP infrastructure, BigQuery analytics, and AI/ML solution deployment.",
+          badges: ["GCP Partner", "AI/ML", "Analytics"],
+          url: "https://cloud.google.com",
+        },
+        {
+          name: "CompTIA",
+          logo: "🎓",
+          category: "IT Certifications",
+          description:
+            "Authorised CompTIA training partner. Our instructors are CompTIA Certified Technical Trainers (CTT+) delivering A+, Network+, Security+, and CySA+ programmes.",
+          badges: ["Authorised", "Security+", "A+ & Network+"],
+          url: "https://comptia.org",
+        },
+        {
+          name: "Palo Alto Networks",
+          logo: "🛡️",
+          category: "Cybersecurity",
+          description:
+            "Next-generation firewall deployment, SASE architecture, and Palo Alto certified training for enterprise security teams.",
+          badges: ["NGFW", "SASE", "Cortex XDR"],
+          url: "https://paloaltonetworks.com",
+        },
+        {
+          name: "Red Hat",
+          logo: "🎩",
+          category: "Linux & OpenShift",
+          description:
+            "Red Hat Business Partner delivering RHEL administration, Ansible automation, and OpenShift container platform training.",
+          badges: ["RHEL", "Ansible", "OpenShift"],
+          url: "https://redhat.com",
+        },
+      ],
+    },
+    {
+      tier: "Training & Certification Partners",
+      description:
+        "Accreditation and examination bodies that validate and certify our training programmes.",
+      partners: [
+        {
+          name: "EC-Council",
+          logo: "⚔️",
+          category: "Ethical Hacking",
+          description:
+            "Accredited Training Centre (ATC) for CEH, CPENT, and CHFI certifications — the industry's leading ethical hacking credentials.",
+          badges: ["ATC", "CEH", "CPENT"],
+          url: "https://eccouncil.org",
+        },
+        {
+          name: "PMI",
+          logo: "📋",
+          category: "Project Management",
+          description:
+            "Authorised Training Partner (ATP) for PMP, CAPM, and PMI-ACP preparation programmes aligned with the latest PMI Examination Content Outline.",
+          badges: ["ATP", "PMP Prep", "CAPM"],
+          url: "https://pmi.org",
+        },
+        {
+          name: "ISACA",
+          logo: "🔒",
+          category: "IT Governance",
+          description:
+            "ISACA Authorised Training Organisation delivering CISA, CISM, and CRISC exam preparation for information security professionals.",
+          badges: ["ATO", "CISA", "CISM"],
+          url: "https://isaca.org",
+        },
+      ],
+    },
+  ],
+
+  stats: [
+    { value: "20+", label: "Technology Partners" },
+    { value: "15+", label: "Years of Alliances" },
+    { value: "40+", label: "Joint Certifications" },
+    { value: "6", label: "Countries Covered" },
+  ],
+
+  becomePartner: {
+    title: "Become a Partner",
+    description:
+      "Are you a technology company looking to expand your reach across East Africa? We're always open to new strategic alliances that create value for businesses in the region.",
+    benefits: [
+      "Access to our network of 500+ enterprise clients",
+      "Joint marketing and co-branded campaigns",
+      "Shared training delivery and certification programmes",
+      "Preferred partner pricing and referral incentives",
+    ],
+    cta: "Get in Touch",
+  },
+};
+
+====================================================
+FILE: ./src/data/services-content.js
+====================================================
+// ─────────────────────────────────────────────
+//  PentaTech — Service Detail Content
+//  Full detail data for each service
+// ─────────────────────────────────────────────
+
+export const SERVICE_DETAILS = {
+  "cloud-computing": {
+    slug: "cloud-computing",
+    icon: "☁️",
+    title: "Cloud Computing",
+    tagline: "Move faster, scale smarter, spend less.",
+    fullDescription:
+      "We design, migrate, and manage cloud environments across AWS, Microsoft Azure, and Google Cloud Platform. Whether you're moving your first workload to the cloud or optimising a complex multi-cloud architecture, our certified cloud architects deliver end-to-end solutions that cut costs, improve resilience, and accelerate innovation.",
+    highlights: [
+      { icon: "🚀", label: "Avg. deployment time", value: "2–4 weeks" },
+      { icon: "💰", label: "Typical cost savings", value: "Up to 40%" },
+      { icon: "⚡", label: "Uptime SLA", value: "99.9%+" },
+      { icon: "🌍", label: "Cloud platforms", value: "AWS · Azure · GCP" },
+    ],
+    whatWeOffer: [
+      {
+        title: "Cloud Strategy & Assessment",
+        description:
+          "Baseline your existing infrastructure, map workloads, and produce a phased migration roadmap with a clear business case.",
+      },
+      {
+        title: "Cloud Migration",
+        description:
+          "Lift-and-shift, re-platforming, or full re-architecture migrations executed with zero unplanned downtime.",
+      },
+      {
+        title: "Multi-Cloud Management",
+        description:
+          "Unified governance, cost visibility, and security posture across AWS, Azure, and GCP from a single pane of glass.",
+      },
+      {
+        title: "Cloud-Native Development",
+        description:
+          "Microservices, serverless architectures, and containerised applications built for elastic scale.",
+      },
+      {
+        title: "FinOps & Cost Optimisation",
+        description:
+          "Right-sizing, Reserved Instance planning, and FinOps tooling to cut cloud spend without sacrificing performance.",
+      },
+      {
+        title: "Managed Cloud Services",
+        description:
+          "24/7 monitoring, patching, and incident response so your team can focus on building, not babysitting.",
+      },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Discovery",
+        desc: "Audit existing infrastructure and define cloud readiness.",
+      },
+      {
+        step: "02",
+        title: "Architecture",
+        desc: "Design target-state architecture aligned with your goals.",
+      },
+      {
+        step: "03",
+        title: "Migration",
+        desc: "Execute phased migration with validation gates at every stage.",
+      },
+      {
+        step: "04",
+        title: "Optimise",
+        desc: "Continuously tune performance, security, and cost post-migration.",
+      },
+    ],
+    technologies: [
+      "AWS",
+      "Microsoft Azure",
+      "Google Cloud",
+      "Kubernetes",
+      "Terraform",
+      "Ansible",
+      "Docker",
+      "CloudFormation",
+    ],
+    outcomes: [
+      "Reduced infrastructure costs by 30–40%",
+      "Improved application availability and resilience",
+      "Faster time-to-market for new features",
+      "Scalable infrastructure that grows with your business",
+      "Enhanced disaster recovery and business continuity",
+    ],
+    caseStudy: {
+      client: "Regional Bank",
+      result:
+        "Migrated 120 workloads to Azure in 8 weeks with zero production incidents, reducing monthly infrastructure spend by 38%.",
+    },
+    relatedServices: [
+      "cybersecurity",
+      "networking-devops",
+      "systems-architecture",
+    ],
+    contactSubject: "Cloud Computing Enquiry",
+  },
+
+  "software-development": {
+    slug: "software-development",
+    icon: "💻",
+    title: "Software Development",
+    tagline: "Custom software built to last — and to scale.",
+    fullDescription:
+      "From MVPs to enterprise platforms, our development teams build robust, maintainable software that solves real business problems. We cover the full stack — web, mobile, APIs, and enterprise systems — using modern frameworks and agile delivery practices.",
+    highlights: [
+      { icon: "📱", label: "Platforms", value: "Web · Mobile · API" },
+      { icon: "⏱️", label: "MVP turnaround", value: "4–6 weeks" },
+      { icon: "👥", label: "Dedicated squads", value: "Available" },
+      { icon: "🔁", label: "Delivery model", value: "Agile sprints" },
+    ],
+    whatWeOffer: [
+      {
+        title: "Web Application Development",
+        description:
+          "Full-stack web apps built with React, Next.js, Node.js, and Django — from marketing sites to complex SaaS platforms.",
+      },
+      {
+        title: "Mobile App Development",
+        description:
+          "Cross-platform (React Native, Flutter) and native iOS/Android applications with polished UX.",
+      },
+      {
+        title: "API & Backend Engineering",
+        description:
+          "RESTful and GraphQL APIs, microservices architectures, and event-driven backends built for reliability at scale.",
+      },
+      {
+        title: "Enterprise Systems Integration",
+        description:
+          "Connect ERP, CRM, payment gateways, and third-party platforms through robust integration layers.",
+      },
+      {
+        title: "Legacy Modernisation",
+        description:
+          "Safely re-architect or extend legacy codebases using strangler-fig patterns and incremental migration strategies.",
+      },
+      {
+        title: "Quality Assurance",
+        description:
+          "Automated test suites, CI/CD pipelines, and performance testing baked in from day one.",
+      },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Requirements",
+        desc: "Deep-dive workshops to capture functional and non-functional requirements.",
+      },
+      {
+        step: "02",
+        title: "Design",
+        desc: "UX prototypes and system design reviewed and approved before coding starts.",
+      },
+      {
+        step: "03",
+        title: "Build",
+        desc: "Two-week sprints with demos, retrospectives, and continuous deployment.",
+      },
+      {
+        step: "04",
+        title: "Launch & Support",
+        desc: "Production release, hypercare period, and optional ongoing maintenance.",
+      },
+    ],
+    technologies: [
+      "React",
+      "Next.js",
+      "Node.js",
+      "Python",
+      "Django",
+      "Flutter",
+      "React Native",
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "Docker",
+    ],
+    outcomes: [
+      "Production-grade software delivered on time and on budget",
+      "Scalable architecture that handles growth without rework",
+      "Comprehensive documentation and knowledge transfer",
+      "Automated test coverage for long-term maintainability",
+      "Dedicated support and SLA-backed maintenance options",
+    ],
+    caseStudy: {
+      client: "Logistics Startup",
+      result:
+        "Delivered a multi-tenant fleet management platform in 12 weeks that now processes over 50,000 deliveries per day across 3 countries.",
+    },
+    relatedServices: [
+      "cloud-computing",
+      "data-analytics",
+      "digital-transformation",
+    ],
+    contactSubject: "Software Development Enquiry",
+  },
+
+  cybersecurity: {
+    slug: "cybersecurity",
+    icon: "🛡️",
+    title: "Cybersecurity",
+    tagline: "Protect what matters before attackers find it first.",
+    fullDescription:
+      "Our cybersecurity practice helps organisations assess, strengthen, and continuously monitor their security posture. From penetration testing to full security programme management, we bring offensive and defensive expertise to keep your data, systems, and reputation safe.",
+    highlights: [
+      {
+        icon: "🔍",
+        label: "Avg. vulnerabilities found per audit",
+        value: "40+",
+      },
+      { icon: "⏰", label: "Mean time to detect (managed)", value: "< 1 hour" },
+      {
+        icon: "📋",
+        label: "Compliance frameworks",
+        value: "ISO 27001 · GDPR · PCI-DSS",
+      },
+      { icon: "🏆", label: "Certified experts", value: "CISSP · CEH · CISM" },
+    ],
+    whatWeOffer: [
+      {
+        title: "Penetration Testing",
+        description:
+          "Network, web application, mobile, and social engineering assessments that find real vulnerabilities before attackers do.",
+      },
+      {
+        title: "Security Architecture Review",
+        description:
+          "Evaluate your existing controls, identify gaps, and produce a prioritised remediation roadmap.",
+      },
+      {
+        title: "Security Operations (SOC-as-a-Service)",
+        description:
+          "24/7 threat monitoring, detection, and incident response managed by our certified security analysts.",
+      },
+      {
+        title: "Compliance & Governance",
+        description:
+          "Achieve and maintain ISO 27001, GDPR, PCI-DSS, and local regulatory compliance with minimal disruption.",
+      },
+      {
+        title: "Security Awareness Training",
+        description:
+          "Phishing simulations, e-learning modules, and workshops that turn your employees into a human firewall.",
+      },
+      {
+        title: "Incident Response",
+        description:
+          "Rapid containment, forensic investigation, and post-incident hardening when you need it most.",
+      },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Scoping",
+        desc: "Define assets, threat model, and rules of engagement.",
+      },
+      {
+        step: "02",
+        title: "Assessment",
+        desc: "Execute tests, audits, or monitoring deployment.",
+      },
+      {
+        step: "03",
+        title: "Reporting",
+        desc: "Detailed findings with risk ratings and remediation guidance.",
+      },
+      {
+        step: "04",
+        title: "Remediate & Verify",
+        desc: "Support remediation and re-test to confirm fixes hold.",
+      },
+    ],
+    technologies: [
+      "Nessus",
+      "Burp Suite",
+      "Metasploit",
+      "Splunk",
+      "Microsoft Sentinel",
+      "CrowdStrike",
+      "Palo Alto NGFW",
+      "Snort",
+      "Wireshark",
+    ],
+    outcomes: [
+      "Measurable reduction in attack surface",
+      "Faster detection and response to real incidents",
+      "Regulatory compliance achieved and maintained",
+      "Board-ready reporting and risk quantification",
+      "Security-aware culture across your organisation",
+    ],
+    caseStudy: {
+      client: "Financial Services Firm",
+      result:
+        "Uncovered 3 critical vulnerabilities in a payment system during a red team exercise, preventing a potential breach estimated at KES 50M in losses.",
+    },
+    relatedServices: [
+      "cloud-computing",
+      "networking-devops",
+      "systems-architecture",
+    ],
+    contactSubject: "Cybersecurity Enquiry",
+  },
+
+  "data-analytics": {
+    slug: "data-analytics",
+    icon: "📊",
+    title: "Data Analytics",
+    tagline: "Turn raw data into decisions that drive growth.",
+    fullDescription:
+      "We help organisations build the data infrastructure, analytics capabilities, and AI/ML models needed to make faster, smarter decisions. From data warehouse design to interactive dashboards and predictive models, our data engineers and analysts deliver end-to-end analytics solutions.",
+    highlights: [
+      { icon: "📈", label: "Avg. reporting time reduction", value: "70%" },
+      { icon: "🤖", label: "AI/ML capabilities", value: "Included" },
+      {
+        icon: "🗄️",
+        label: "Data platforms",
+        value: "BigQuery · Snowflake · Redshift",
+      },
+      { icon: "📊", label: "BI tools", value: "Power BI · Tableau · Looker" },
+    ],
+    whatWeOffer: [
+      {
+        title: "Data Strategy & Roadmap",
+        description:
+          "Define your data vision, governance model, and a pragmatic roadmap for becoming a data-driven organisation.",
+      },
+      {
+        title: "Data Engineering",
+        description:
+          "Design and build reliable ETL/ELT pipelines, data lakes, and modern cloud data warehouses.",
+      },
+      {
+        title: "Business Intelligence",
+        description:
+          "Interactive dashboards and self-service BI tools that give every team access to the insights they need.",
+      },
+      {
+        title: "Advanced Analytics & AI/ML",
+        description:
+          "Predictive models, recommendation engines, NLP, and computer vision solutions deployed to production.",
+      },
+      {
+        title: "Data Governance",
+        description:
+          "Data cataloguing, lineage tracking, quality monitoring, and role-based access controls.",
+      },
+      {
+        title: "Real-Time Analytics",
+        description:
+          "Streaming data pipelines with Apache Kafka, Flink, and cloud-native tools for instant operational insights.",
+      },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Discovery",
+        desc: "Audit data sources, quality, and current analytics maturity.",
+      },
+      {
+        step: "02",
+        title: "Architecture",
+        desc: "Design the target data platform and governance framework.",
+      },
+      {
+        step: "03",
+        title: "Build",
+        desc: "Implement pipelines, models, and dashboards iteratively.",
+      },
+      {
+        step: "04",
+        title: "Empower",
+        desc: "Training, documentation, and hand-off to your internal team.",
+      },
+    ],
+    technologies: [
+      "Python",
+      "Apache Spark",
+      "Kafka",
+      "dbt",
+      "Airflow",
+      "BigQuery",
+      "Snowflake",
+      "Power BI",
+      "Tableau",
+      "TensorFlow",
+      "scikit-learn",
+    ],
+    outcomes: [
+      "Single source of truth for business metrics",
+      "Automated reporting saving hundreds of analyst-hours monthly",
+      "Predictive models that improve decision quality",
+      "Data-driven culture embedded across business units",
+      "Scalable infrastructure that handles data growth",
+    ],
+    caseStudy: {
+      client: "Retail Chain",
+      result:
+        "Built a demand forecasting model that reduced overstock by 25% and cut stockouts by 32% across 80 stores within 6 months of deployment.",
+    },
+    relatedServices: [
+      "cloud-computing",
+      "software-development",
+      "digital-transformation",
+    ],
+    contactSubject: "Data Analytics Enquiry",
+  },
+
+  "networking-devops": {
+    slug: "networking-devops",
+    icon: "🌐",
+    title: "Networking & DevOps",
+    tagline: "Ship faster, break less, recover instantly.",
+    fullDescription:
+      "We design enterprise-grade networks and build the automation pipelines that let your engineering teams deploy with confidence. From SD-WAN and zero-trust network access to fully automated CI/CD and infrastructure-as-code, we remove the friction between development and production.",
+    highlights: [
+      { icon: "⚡", label: "Deployment frequency increase", value: "10×" },
+      { icon: "🔄", label: "CI/CD pipeline setup", value: "From 1 week" },
+      { icon: "🌐", label: "Network certifications", value: "CCIE · CCNP" },
+      { icon: "🐳", label: "Container platforms", value: "K8s · Docker · ECS" },
+    ],
+    whatWeOffer: [
+      {
+        title: "Enterprise Network Design",
+        description:
+          "LAN/WAN, SD-WAN, and zero-trust network architectures designed for performance, redundancy, and security.",
+      },
+      {
+        title: "CI/CD Pipeline Implementation",
+        description:
+          "Design and deploy automated build, test, and release pipelines using GitHub Actions, GitLab CI, Jenkins, and ArgoCD.",
+      },
+      {
+        title: "Infrastructure as Code",
+        description:
+          "Provision and manage infrastructure consistently with Terraform, Pulumi, and Ansible across any cloud or on-premises environment.",
+      },
+      {
+        title: "Container Orchestration",
+        description:
+          "Design, deploy, and operate Kubernetes clusters and Docker-based environments with full observability stacks.",
+      },
+      {
+        title: "Monitoring & Observability",
+        description:
+          "End-to-end visibility with Prometheus, Grafana, Datadog, and ELK Stack — metrics, logs, and traces in one place.",
+      },
+      {
+        title: "Network Security",
+        description:
+          "Firewall policy review, micro-segmentation, SASE implementation, and network access control (NAC) deployment.",
+      },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Assessment",
+        desc: "Review current network topology, CI/CD maturity, and pain points.",
+      },
+      {
+        step: "02",
+        title: "Design",
+        desc: "Produce architecture diagrams and automation blueprints.",
+      },
+      {
+        step: "03",
+        title: "Implement",
+        desc: "Configure, automate, and test in a staged rollout.",
+      },
+      {
+        step: "04",
+        title: "Handover",
+        desc: "Knowledge transfer, runbooks, and optional managed operations.",
+      },
+    ],
+    technologies: [
+      "Kubernetes",
+      "Docker",
+      "Terraform",
+      "Ansible",
+      "Jenkins",
+      "GitHub Actions",
+      "ArgoCD",
+      "Prometheus",
+      "Grafana",
+      "Cisco IOS",
+      "Palo Alto",
+      "Fortinet",
+    ],
+    outcomes: [
+      "Release cycles shortened from weeks to hours",
+      "Near-zero unplanned downtime through automation",
+      "Network performance and reliability improvements",
+      "Reduced manual toil for engineering teams",
+      "Complete infrastructure auditability and repeatability",
+    ],
+    caseStudy: {
+      client: "Telco Provider",
+      result:
+        "Reduced deployment time from 2 weeks to 4 hours through a fully automated GitOps pipeline, cutting release-related incidents by 85%.",
+    },
+    relatedServices: [
+      "cloud-computing",
+      "cybersecurity",
+      "systems-architecture",
+    ],
+    contactSubject: "Networking & DevOps Enquiry",
+  },
+
+  "digital-transformation": {
+    slug: "digital-transformation",
+    icon: "🔄",
+    title: "Digital Transformation",
+    tagline: "Modernise your business — people, process, and technology.",
+    fullDescription:
+      "Digital transformation is as much about people and process as it is technology. We partner with leadership teams to develop transformation strategies, redesign business processes, and implement the technology changes needed to stay competitive in a rapidly evolving landscape.",
+    highlights: [
+      { icon: "🗺️", label: "Typical programme duration", value: "3–18 months" },
+      {
+        icon: "👥",
+        label: "Stakeholders engaged per programme",
+        value: "C-suite to front-line",
+      },
+      { icon: "📊", label: "Average productivity improvement", value: "35%" },
+      {
+        icon: "🏢",
+        label: "Industries served",
+        value: "Finance · Retail · Gov · Health",
+      },
+    ],
+    whatWeOffer: [
+      {
+        title: "Digital Strategy & Roadmap",
+        description:
+          "Facilitated workshops with leadership to define your digital ambition, assess maturity, and build a phased transformation roadmap.",
+      },
+      {
+        title: "Process Redesign & Automation",
+        description:
+          "Map and re-engineer business processes, then automate repetitive tasks with RPA, workflow tools, and AI-powered solutions.",
+      },
+      {
+        title: "Change Management",
+        description:
+          "Structured change management frameworks, communication plans, and training programmes to drive adoption.",
+      },
+      {
+        title: "Technology Selection & Procurement",
+        description:
+          "Vendor-neutral guidance on selecting the right ERP, CRM, HRMS, or platform — without the bias of a reseller.",
+      },
+      {
+        title: "Digital Workplace",
+        description:
+          "Microsoft 365 and Google Workspace deployment, collaboration tooling, and hybrid work enablement.",
+      },
+      {
+        title: "Innovation Labs",
+        description:
+          "Structured innovation sprints using design thinking to identify and prototype high-value digital opportunities.",
+      },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Diagnose",
+        desc: "Assess digital maturity, process gaps, and stakeholder readiness.",
+      },
+      {
+        step: "02",
+        title: "Strategise",
+        desc: "Co-create a transformation roadmap with clear milestones and KPIs.",
+      },
+      {
+        step: "03",
+        title: "Execute",
+        desc: "Deliver in agile waves, each producing measurable business value.",
+      },
+      {
+        step: "04",
+        title: "Sustain",
+        desc: "Embed capabilities internally and track outcomes against the business case.",
+      },
+    ],
+    technologies: [
+      "Microsoft 365",
+      "Power Platform",
+      "Salesforce",
+      "SAP",
+      "ServiceNow",
+      "UiPath",
+      "Power BI",
+      "SharePoint",
+      "Dynamics 365",
+    ],
+    outcomes: [
+      "Clear, board-approved digital strategy",
+      "Measurable productivity and efficiency gains",
+      "Reduced manual processing and associated errors",
+      "Higher employee and customer digital experience scores",
+      "Organisation-wide capability to sustain transformation",
+    ],
+    caseStudy: {
+      client: "Government Ministry",
+      result:
+        "Digitised 14 paper-based citizen services in 6 months, reducing average processing time from 14 days to 48 hours and improving satisfaction scores by 60%.",
+    },
+    relatedServices: [
+      "software-development",
+      "data-analytics",
+      "managed-it-support",
+    ],
+    contactSubject: "Digital Transformation Enquiry",
+  },
+
+  "systems-architecture": {
+    slug: "systems-architecture",
+    icon: "🏗️",
+    title: "Systems Architecture",
+    tagline: "Build on foundations that won't fail you at scale.",
+    fullDescription:
+      "We design the technical blueprints that enterprise systems are built on. Our principal architects bring experience from large-scale distributed systems, high-availability financial platforms, and complex integrations to ensure your architecture is resilient, maintainable, and future-proof.",
+    highlights: [
+      { icon: "⚖️", label: "Architecture reviews conducted", value: "200+" },
+      { icon: "🔒", label: "Availability targets", value: "99.99% achievable" },
+      {
+        icon: "📐",
+        label: "Frameworks",
+        value: "TOGAF · AWS Well-Architected",
+      },
+      { icon: "⚡", label: "Typical review turnaround", value: "5–10 days" },
+    ],
+    whatWeOffer: [
+      {
+        title: "Architecture Review & Assessment",
+        description:
+          "Independent review of your existing architecture against well-known frameworks, identifying risks and improvement opportunities.",
+      },
+      {
+        title: "Solution Architecture Design",
+        description:
+          "End-to-end architecture design for new systems: component diagrams, data flows, integration patterns, and technology selection.",
+      },
+      {
+        title: "High Availability & Resilience Design",
+        description:
+          "Design multi-region, active-active, and disaster-recovery architectures that meet stringent SLA requirements.",
+      },
+      {
+        title: "Integration Architecture",
+        description:
+          "API gateways, event buses, ESBs, and data integration patterns that connect disparate systems cleanly.",
+      },
+      {
+        title: "Security Architecture",
+        description:
+          "Zero-trust, defence-in-depth, and secure-by-design architecture patterns embedded at the blueprint stage.",
+      },
+      {
+        title: "Architecture Governance",
+        description:
+          "Establish Architecture Review Boards (ARBs), standards documentation, and technology radar processes.",
+      },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Understand",
+        desc: "Capture business requirements, constraints, and non-functional requirements.",
+      },
+      {
+        step: "02",
+        title: "Design",
+        desc: "Produce candidate architectures, evaluate trade-offs, and select optimal design.",
+      },
+      {
+        step: "03",
+        title: "Validate",
+        desc: "Proof-of-concept builds, load testing, and peer review.",
+      },
+      {
+        step: "04",
+        title: "Document",
+        desc: "Architecture Decision Records (ADRs) and living documentation handed over.",
+      },
+    ],
+    technologies: [
+      "AWS Well-Architected",
+      "TOGAF",
+      "ArchiMate",
+      "OpenAPI",
+      "AsyncAPI",
+      "Apache Kafka",
+      "Kong API Gateway",
+      "Istio",
+      "Envoy",
+    ],
+    outcomes: [
+      "Architectures that meet availability, performance, and cost targets",
+      "Reduced technical debt and future rework",
+      "Development teams with clear, unambiguous blueprints",
+      "Architecture governance processes that scale with the organisation",
+      "Documented decisions that survive team changes",
+    ],
+    caseStudy: {
+      client: "Insurance Platform",
+      result:
+        "Redesigned a monolithic policy management system into event-driven microservices, enabling a 5× increase in transaction throughput and 99.99% availability.",
+    },
+    relatedServices: [
+      "cloud-computing",
+      "software-development",
+      "networking-devops",
+    ],
+    contactSubject: "Systems Architecture Enquiry",
+  },
+
+  "managed-it-support": {
+    slug: "managed-it-support",
+    icon: "🤝",
+    title: "Managed IT Support",
+    tagline: "Your extended IT team — 24/7, 365 days a year.",
+    fullDescription:
+      "We act as your outsourced IT department or supplement your internal team with specialist capacity. From helpdesk and end-user support to proactive infrastructure monitoring and vendor management, our managed services free your business to focus on what it does best.",
+    highlights: [
+      { icon: "⏰", label: "Support availability", value: "24/7 / 365" },
+      { icon: "📞", label: "First-call resolution rate", value: "87%" },
+      { icon: "⚡", label: "Avg. first response time", value: "< 15 minutes" },
+      { icon: "🌍", label: "Remote & on-site", value: "Nairobi + remote" },
+    ],
+    whatWeOffer: [
+      {
+        title: "Helpdesk & End-User Support",
+        description:
+          "Tier 1–3 helpdesk services via phone, email, and chat. Hardware troubleshooting, software support, and on-site visits.",
+      },
+      {
+        title: "Proactive Infrastructure Monitoring",
+        description:
+          "24/7 monitoring of servers, networks, and cloud resources with automated alerting and incident response.",
+      },
+      {
+        title: "Patch Management",
+        description:
+          "Scheduled vulnerability patching for operating systems, middleware, and applications across your entire estate.",
+      },
+      {
+        title: "Backup & Disaster Recovery",
+        description:
+          "Automated backup solutions with regular restore testing and documented DR procedures to meet your RPO/RTO targets.",
+      },
+      {
+        title: "Vendor Management",
+        description:
+          "Act as your single point of contact for ISP, hardware, software, and cloud vendor relationships.",
+      },
+      {
+        title: "IT Asset Management",
+        description:
+          "Full lifecycle management of hardware and software assets — procurement, deployment, tracking, and disposal.",
+      },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Onboarding",
+        desc: "Document your environment, set up monitoring, and establish support channels.",
+      },
+      {
+        step: "02",
+        title: "Baseline",
+        desc: "Identify quick wins and remediate critical gaps within 30 days.",
+      },
+      {
+        step: "03",
+        title: "Operate",
+        desc: "Ongoing proactive management with monthly service reviews.",
+      },
+      {
+        step: "04",
+        title: "Improve",
+        desc: "Quarterly improvement cycles to optimise service quality and reduce incidents.",
+      },
+    ],
+    technologies: [
+      "Microsoft 365",
+      "Intune",
+      "Jamf",
+      "Zabbix",
+      "PagerDuty",
+      "Freshdesk",
+      "Veeam",
+      "Acronis",
+      "NinjaRMM",
+      "ConnectWise",
+    ],
+    outcomes: [
+      "Reduced IT incident volume through proactive maintenance",
+      "Faster resolution times and higher end-user satisfaction",
+      "Complete visibility into your IT estate",
+      "Predictable monthly IT spend",
+      "Access to senior expertise without full-time hiring costs",
+    ],
+    caseStudy: {
+      client: "SME Manufacturing Firm",
+      result:
+        "Reduced monthly helpdesk tickets by 42% in 6 months through proactive patching and root-cause elimination, while cutting IT support costs by 28%.",
+    },
+    relatedServices: [
+      "cybersecurity",
+      "cloud-computing",
+      "digital-transformation",
+    ],
+    contactSubject: "Managed IT Support Enquiry",
+  },
+};
+
 ====================================================
 FILE: ./src/hooks/useCountUp.js
 ====================================================
@@ -19978,7 +21166,7 @@ function AboutUsPage() {
       <CircuitCanvas />
       <Navbar />
 
-      <main className="pt-page">
+      <main className="pt-page" ref={sectionRef}>
         {/* Hero Section */}
         <section className="pt-about-hero">
           <div className="container">
@@ -19990,7 +21178,7 @@ function AboutUsPage() {
         </section>
 
         {/* Introduction Section */}
-        <section className="pt-about-intro" ref={sectionRef}>
+        <section className="pt-about-intro">
           <div className="container">
             <div className="row justify-content-center">
               <div className="col-lg-10">
@@ -20180,6 +21368,674 @@ function AboutUsPage() {
 }
 
 export default AboutUsPage;
+
+====================================================
+FILE: ./src/pages/BlogPage.jsx
+====================================================
+// ─────────────────────────────────────────────
+//  Page: BlogPage
+//  Article listing with category filtering
+// ─────────────────────────────────────────────
+
+import React, { useState } from "react";
+import { BLOG } from "../data/blog-content";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import CircuitCanvas from "../components/CircuitCanvas";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import "../styles/pages.css";
+import "../styles/blog.css";
+
+function BlogPage() {
+  const pageRef = useScrollReveal();
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [email, setEmail] = useState("");
+
+  const featuredPosts = BLOG.posts.filter((p) => p.featured);
+  const regularPosts = BLOG.posts.filter((p) => {
+    if (p.featured) return false;
+    if (activeCategory === "All") return true;
+    return p.category === activeCategory;
+  });
+
+  // When a category filter is active, also show matching featured posts in the grid
+  const gridPosts =
+    activeCategory === "All"
+      ? regularPosts
+      : BLOG.posts.filter((p) => p.category === activeCategory);
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    alert(`Thanks! We'll send insights to ${email}.`);
+    setEmail("");
+  };
+
+  return (
+    <>
+      <CircuitCanvas />
+      <Navbar />
+
+      <main className="pt-page" ref={pageRef}>
+        {/* ── Hero ── */}
+        <section className="pt-about-hero">
+          <div className="container">
+            <div className="pt-about-hero__content">
+              <h1>{BLOG.hero.title}</h1>
+              <p>{BLOG.hero.subtitle}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Category Filter ── */}
+        <section className="pt-blog-filter">
+          <div className="container">
+            <div className="pt-blog-filter__bar">
+              {BLOG.categories.map((cat) => (
+                <button
+                  key={cat}
+                  className={`pt-blog-filter__btn ${activeCategory === cat ? "active" : ""}`}
+                  onClick={() => setActiveCategory(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Featured Posts (only shown on "All") ── */}
+        {activeCategory === "All" && (
+          <section className="pt-blog-featured">
+            <div className="container">
+              <div className="pt-blog-section-label">Featured Articles</div>
+              <div className="row g-4">
+                {featuredPosts.map((post) => (
+                  <div key={post.id} className="col-md-6">
+                    <div className="pt-blog-featured-card reveal">
+                      <span className="pt-blog-card__category-pill">
+                        {post.category}
+                      </span>
+                      <h2>{post.title}</h2>
+                      <p className="pt-blog-card__excerpt">{post.excerpt}</p>
+
+                      <div className="pt-blog-card__tags">
+                        {post.tags.map((tag, i) => (
+                          <span key={i} className="pt-blog-card__tag">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="pt-blog-card__meta">
+                        <div className="pt-blog-card__author">
+                          <div className="pt-blog-card__author-avatar">
+                            {post.author.avatar}
+                          </div>
+                          <div>
+                            <div className="pt-blog-card__author-name">
+                              {post.author.name}
+                            </div>
+                            <div className="pt-blog-card__author-role">
+                              {post.author.role}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="pt-blog-card__info">
+                          <span className="pt-blog-card__date">
+                            {post.date}
+                          </span>
+                          <span className="pt-blog-card__read-time">
+                            ⏱ {post.readTime}
+                          </span>
+                        </div>
+                      </div>
+
+                      <a
+                        href={`/blog/${post.slug}`}
+                        className="pt-blog-card__read-link"
+                        style={{ marginTop: "18px" }}
+                      >
+                        Read Article →
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── All / Filtered Posts Grid ── */}
+        <section className="pt-blog-grid">
+          <div className="container">
+            {activeCategory === "All" && (
+              <div className="pt-blog-section-label">Latest Articles</div>
+            )}
+            {activeCategory !== "All" && (
+              <div className="pt-blog-section-label">{activeCategory}</div>
+            )}
+
+            {gridPosts.length === 0 ? (
+              <div className="text-center py-5">
+                <p style={{ color: "rgba(240,244,255,0.5)", fontSize: "1rem" }}>
+                  No articles in this category yet — check back soon!
+                </p>
+              </div>
+            ) : (
+              <div className="row g-4">
+                {gridPosts.map((post) => (
+                  <div key={post.id} className="col-md-6 col-lg-4">
+                    <div className="pt-blog-post-card reveal">
+                      <span className="pt-blog-card__category-pill">
+                        {post.category}
+                      </span>
+                      <h3>{post.title}</h3>
+                      <p className="pt-blog-card__excerpt">{post.excerpt}</p>
+
+                      <div className="pt-blog-card__tags">
+                        {post.tags.map((tag, i) => (
+                          <span key={i} className="pt-blog-card__tag">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="pt-blog-card__meta">
+                        <div className="pt-blog-card__author">
+                          <div className="pt-blog-card__author-avatar">
+                            {post.author.avatar}
+                          </div>
+                          <div>
+                            <div className="pt-blog-card__author-name">
+                              {post.author.name}
+                            </div>
+                          </div>
+                        </div>
+                        <span className="pt-blog-card__read-time">
+                          ⏱ {post.readTime}
+                        </span>
+                      </div>
+
+                      <a
+                        href={`/blog/${post.slug}`}
+                        className="pt-blog-card__read-link"
+                        style={{ marginTop: "18px" }}
+                      >
+                        Read More →
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* ── Newsletter ── */}
+        <section className="pt-blog-newsletter">
+          <div className="container">
+            <div className="pt-blog-newsletter__inner reveal">
+              <h2>{BLOG.newsletter.title}</h2>
+              <p>{BLOG.newsletter.description}</p>
+              <form
+                className="pt-blog-newsletter__form"
+                onSubmit={handleNewsletterSubmit}
+              >
+                <input
+                  type="email"
+                  className="pt-blog-newsletter__input"
+                  placeholder={BLOG.newsletter.placeholder}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <button type="submit" className="btn-primary-pt">
+                  {BLOG.newsletter.cta}
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </>
+  );
+}
+
+export default BlogPage;
+
+====================================================
+FILE: ./src/pages/ContactPage.jsx
+====================================================
+// ─────────────────────────────────────────────
+//  Page: ContactPage
+//  Contact form with validation + info sidebar
+// ─────────────────────────────────────────────
+
+import React, { useState } from "react";
+// import { Link } from "react-router-dom";
+import { CONTACT_INFO, SERVICES } from "../data/content";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import CircuitCanvas from "../components/CircuitCanvas";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import "../styles/pages.css";
+import "../styles/contact.css";
+
+const INITIAL_FORM = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  company: "",
+  service: "",
+  budget: "",
+  message: "",
+};
+
+const REQUIRED = ["firstName", "lastName", "email", "service", "message"];
+
+function validate(fields) {
+  const errors = {};
+  REQUIRED.forEach((key) => {
+    if (!fields[key].trim()) errors[key] = "This field is required.";
+  });
+  if (fields.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) {
+    errors.email = "Please enter a valid email address.";
+  }
+  return errors;
+}
+
+function ContactPage() {
+  const pageRef = useScrollReveal();
+  const [form, setForm] = useState(INITIAL_FORM);
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate(form);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      // Scroll to first error
+      const firstKey = Object.keys(validationErrors)[0];
+      document.querySelector(`[name="${firstKey}"]`)?.focus();
+      return;
+    }
+
+    setSubmitting(true);
+
+    // Build mailto link as the submission action (replace with API call if needed)
+    const subject = `[PentaTech Enquiry] ${form.service ? `${form.service} — ` : ""}${form.firstName} ${form.lastName}`;
+    const body = [
+      `Name: ${form.firstName} ${form.lastName}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone || "Not provided"}`,
+      `Company: ${form.company || "Not provided"}`,
+      `Service of Interest: ${form.service}`,
+      `Budget Range: ${form.budget || "Not specified"}`,
+      ``,
+      `Message:`,
+      form.message,
+    ].join("\n");
+
+    window.location.href = `mailto:${CONTACT_INFO.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Show success after a short delay (email client opens in background)
+    setTimeout(() => {
+      setSubmitting(false);
+      setSubmitted(true);
+      setForm(INITIAL_FORM);
+    }, 800);
+  };
+
+  return (
+    <>
+      <CircuitCanvas />
+      <Navbar />
+
+      <main className="pt-page" ref={pageRef}>
+        {/* ── Hero ── */}
+        <section className="pt-about-hero">
+          <div className="container">
+            <div className="pt-about-hero__content">
+              <h1>Contact Us</h1>
+              <p>
+                Tell us about your project — we'll get back to you within one
+                business day.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Body ── */}
+        <section className="pt-contact-body">
+          <div className="container">
+            <div className="row g-5">
+              {/* ── Left: Form ── */}
+              <div className="col-lg-7 reveal">
+                <div className="pt-contact-form-card">
+                  {submitted ? (
+                    /* ── Success State ── */
+                    <div className="pt-contact-success">
+                      <span className="pt-contact-success__icon">✅</span>
+                      <h3>Message Sent!</h3>
+                      <p>
+                        Thanks for reaching out. Your email client should have
+                        opened with your message. We'll be in touch within one
+                        business day.
+                      </p>
+                      <button
+                        className="btn-secondary-pt"
+                        onClick={() => setSubmitted(false)}
+                      >
+                        Send Another Message
+                      </button>
+                    </div>
+                  ) : (
+                    /* ── Form ── */
+                    <>
+                      <h2>Send Us a Message</h2>
+                      <p>
+                        Fill in the form below and one of our consultants will
+                        be in touch shortly.
+                      </p>
+
+                      <form onSubmit={handleSubmit} noValidate>
+                        {/* Name Row */}
+                        <div className="pt-contact-row">
+                          <div className="pt-contact-group">
+                            <label htmlFor="firstName">First Name *</label>
+                            <input
+                              id="firstName"
+                              name="firstName"
+                              type="text"
+                              placeholder="John"
+                              value={form.firstName}
+                              onChange={handleChange}
+                              className={errors.firstName ? "error" : ""}
+                            />
+                            {errors.firstName && (
+                              <span className="pt-contact-group__error">
+                                {errors.firstName}
+                              </span>
+                            )}
+                          </div>
+                          <div className="pt-contact-group">
+                            <label htmlFor="lastName">Last Name *</label>
+                            <input
+                              id="lastName"
+                              name="lastName"
+                              type="text"
+                              placeholder="Doe"
+                              value={form.lastName}
+                              onChange={handleChange}
+                              className={errors.lastName ? "error" : ""}
+                            />
+                            {errors.lastName && (
+                              <span className="pt-contact-group__error">
+                                {errors.lastName}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Email + Phone Row */}
+                        <div className="pt-contact-row">
+                          <div className="pt-contact-group">
+                            <label htmlFor="email">Work Email *</label>
+                            <input
+                              id="email"
+                              name="email"
+                              type="email"
+                              placeholder="john@company.com"
+                              value={form.email}
+                              onChange={handleChange}
+                              className={errors.email ? "error" : ""}
+                            />
+                            {errors.email && (
+                              <span className="pt-contact-group__error">
+                                {errors.email}
+                              </span>
+                            )}
+                          </div>
+                          <div className="pt-contact-group">
+                            <label htmlFor="phone">Phone Number</label>
+                            <input
+                              id="phone"
+                              name="phone"
+                              type="tel"
+                              placeholder="+254 700 000 000"
+                              value={form.phone}
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Company */}
+                        <div className="pt-contact-group">
+                          <label htmlFor="company">
+                            Company / Organisation
+                          </label>
+                          <input
+                            id="company"
+                            name="company"
+                            type="text"
+                            placeholder="Your company name"
+                            value={form.company}
+                            onChange={handleChange}
+                          />
+                        </div>
+
+                        {/* Service + Budget Row */}
+                        <div className="pt-contact-row">
+                          <div className="pt-contact-group">
+                            <label htmlFor="service">
+                              Service of Interest *
+                            </label>
+                            <select
+                              id="service"
+                              name="service"
+                              value={form.service}
+                              onChange={handleChange}
+                              className={errors.service ? "error" : ""}
+                            >
+                              <option value="" disabled>
+                                Select a service
+                              </option>
+                              {SERVICES.map((s) => (
+                                <option key={s.slug} value={s.title}>
+                                  {s.icon} {s.title}
+                                </option>
+                              ))}
+                              <option value="Training Programme">
+                                🎓 Training Programme
+                              </option>
+                              <option value="General Enquiry">
+                                💬 General Enquiry
+                              </option>
+                            </select>
+                            {errors.service && (
+                              <span className="pt-contact-group__error">
+                                {errors.service}
+                              </span>
+                            )}
+                          </div>
+                          <div className="pt-contact-group">
+                            <label htmlFor="budget">Budget Range</label>
+                            <select
+                              id="budget"
+                              name="budget"
+                              value={form.budget}
+                              onChange={handleChange}
+                            >
+                              <option value="" disabled>
+                                Select a range
+                              </option>
+                              <option value="Under KES 100K">
+                                Under KES 100K
+                              </option>
+                              <option value="KES 100K – 500K">
+                                KES 100K – 500K
+                              </option>
+                              <option value="KES 500K – 1M">
+                                KES 500K – 1M
+                              </option>
+                              <option value="KES 1M – 5M">KES 1M – 5M</option>
+                              <option value="Over KES 5M">Over KES 5M</option>
+                              <option value="To be discussed">
+                                To be discussed
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+
+                        {/* Message */}
+                        <div className="pt-contact-group">
+                          <label htmlFor="message">Your Message *</label>
+                          <textarea
+                            id="message"
+                            name="message"
+                            placeholder="Tell us about your project, challenge, or question..."
+                            value={form.message}
+                            onChange={handleChange}
+                            className={errors.message ? "error" : ""}
+                            rows={5}
+                          />
+                          {errors.message && (
+                            <span className="pt-contact-group__error">
+                              {errors.message}
+                            </span>
+                          )}
+                        </div>
+
+                        <button
+                          type="submit"
+                          className="btn-primary-pt pt-contact-submit"
+                          disabled={submitting}
+                        >
+                          {submitting ? <>⏳ Sending…</> : <>📨 Send Message</>}
+                        </button>
+                      </form>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* ── Right: Sidebar ── */}
+              <div className="col-lg-5 reveal">
+                <div className="pt-contact-sidebar">
+                  {/* Contact Info */}
+                  <div className="pt-contact-info-card">
+                    <h3>Get in Touch</h3>
+
+                    <div className="pt-contact-info-item">
+                      <div className="pt-contact-info-item__icon">📧</div>
+                      <div>
+                        <div className="pt-contact-info-item__label">Email</div>
+                        <a
+                          href={`mailto:${CONTACT_INFO.email}`}
+                          className="pt-contact-info-item__value"
+                        >
+                          {CONTACT_INFO.email}
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="pt-contact-info-item">
+                      <div className="pt-contact-info-item__icon">📞</div>
+                      <div>
+                        <div className="pt-contact-info-item__label">Phone</div>
+                        <a
+                          href={`tel:${CONTACT_INFO.phone.replace(/\s/g, "")}`}
+                          className="pt-contact-info-item__value"
+                        >
+                          {CONTACT_INFO.phone}
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="pt-contact-info-item">
+                      <div className="pt-contact-info-item__icon">📍</div>
+                      <div>
+                        <div className="pt-contact-info-item__label">
+                          Office
+                        </div>
+                        <span className="pt-contact-info-item__value">
+                          {CONTACT_INFO.address}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div
+                      className="pt-contact-info-item"
+                      style={{ marginBottom: 0 }}
+                    >
+                      <div className="pt-contact-info-item__icon">⏱️</div>
+                      <div>
+                        <div className="pt-contact-info-item__label">
+                          Response Time
+                        </div>
+                        <span className="pt-contact-info-item__value">
+                          Within 1 business day
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Business Hours */}
+                  <div className="pt-contact-info-card">
+                    <h3>Business Hours</h3>
+                    <ul className="pt-contact-hours">
+                      <li>
+                        <span>Monday – Friday</span>
+                        <span>8:00 AM – 6:00 PM</span>
+                      </li>
+                      <li>
+                        <span>Saturday</span>
+                        <span>9:00 AM – 1:00 PM</span>
+                      </li>
+                      <li>
+                        <span>Sunday</span>
+                        <span>Closed</span>
+                      </li>
+                      <li>
+                        <span>Emergency Support</span>
+                        <span>24/7</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* WhatsApp CTA */}
+                  <a
+                    href={CONTACT_INFO.whatsapp}
+                    className="pt-contact-whatsapp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    💬 Chat with Us on WhatsApp
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </>
+  );
+}
+
+export default ContactPage;
 
 ====================================================
 FILE: ./src/pages/CourseDetailPage.jsx
@@ -20439,6 +22295,503 @@ function HomePage() {
 export default HomePage;
 
 ====================================================
+FILE: ./src/pages/PartnersPage.jsx
+====================================================
+// ─────────────────────────────────────────────
+//  Page: PartnersPage
+//  Technology & training partner showcase
+// ─────────────────────────────────────────────
+
+import React, { useState } from "react";
+// import { Link } from "react-router-dom";
+import { PARTNERS } from "../data/partners-content";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import CircuitCanvas from "../components/CircuitCanvas";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import CallToAction from "../components/CallToAction";
+import "../styles/pages.css";
+import "../styles/partners.css";
+
+function PartnersPage() {
+  const pageRef = useScrollReveal();
+  const [formData, setFormData] = useState({
+    company: "",
+    name: "",
+    email: "",
+    partnerType: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(
+      "Thank you for your interest! Our partnerships team will be in touch within 48 hours.",
+    );
+    setFormData({
+      company: "",
+      name: "",
+      email: "",
+      partnerType: "",
+      message: "",
+    });
+  };
+
+  return (
+    <>
+      <CircuitCanvas />
+      <Navbar />
+
+      <main className="pt-page" ref={pageRef}>
+        {/* ── Hero ── */}
+        <section className="pt-about-hero">
+          <div className="container">
+            <div className="pt-about-hero__content">
+              <h1>{PARTNERS.hero.title}</h1>
+              <p>{PARTNERS.hero.subtitle}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Intro ── */}
+        <section className="pt-partners-intro">
+          <div className="container">
+            <p className="pt-partners-intro__text reveal">{PARTNERS.intro}</p>
+          </div>
+        </section>
+
+        {/* ── Stats ── */}
+        <section className="pt-partners-stats">
+          <div className="container">
+            <div className="row justify-content-center">
+              {PARTNERS.stats.map((stat, i) => (
+                <div key={i} className="col-6 col-md-3">
+                  <div className="pt-partners-stat reveal">
+                    <div className="pt-partners-stat__number">{stat.value}</div>
+                    <div className="pt-partners-stat__label">{stat.label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Partner Tiers ── */}
+        {PARTNERS.tiers.map((tier, tierIndex) => (
+          <section key={tierIndex} className="pt-partners-tier">
+            <div className="container">
+              <div className="pt-partners-tier__header reveal">
+                <div className="pt-partners-tier__badge">
+                  Tier {tierIndex + 1}
+                </div>
+                <h2 className="pt-partners-tier__title">{tier.tier}</h2>
+                <p className="pt-partners-tier__desc">{tier.description}</p>
+              </div>
+
+              <div className="row g-4">
+                {tier.partners.map((partner, i) => (
+                  <div
+                    key={i}
+                    className={`col-md-6 ${
+                      tier.partners.length === 3 ? "col-lg-4" : "col-lg-3"
+                    }`}
+                  >
+                    <div className="pt-partners-card reveal">
+                      <div className="pt-partners-card__top">
+                        <div className="pt-partners-card__logo">
+                          {partner.logo}
+                        </div>
+                        <div>
+                          <div className="pt-partners-card__name">
+                            {partner.name}
+                          </div>
+                          <div className="pt-partners-card__category">
+                            {partner.category}
+                          </div>
+                        </div>
+                      </div>
+                      <p className="pt-partners-card__desc">
+                        {partner.description}
+                      </p>
+                      <div className="pt-partners-card__badges">
+                        {partner.badges.map((badge, bi) => (
+                          <span key={bi} className="pt-partners-card__badge">
+                            {badge}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ))}
+
+        {/* ── Become a Partner ── */}
+        <section className="pt-partners-cta">
+          <div className="container">
+            <div className="pt-partners-cta__inner reveal">
+              {/* Left: Benefits */}
+              <div className="pt-partners-cta__left">
+                <h2>{PARTNERS.becomePartner.title}</h2>
+                <p>{PARTNERS.becomePartner.description}</p>
+                <ul className="pt-partners-cta__benefits">
+                  {PARTNERS.becomePartner.benefits.map((benefit, i) => (
+                    <li key={i}>{benefit}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Right: Form */}
+              <div className="pt-partners-cta__form">
+                <h3>Send Us a Message</h3>
+                <form onSubmit={handleSubmit}>
+                  <div className="pt-partners-form-group">
+                    <input
+                      type="text"
+                      name="company"
+                      placeholder="Company Name"
+                      value={formData.company}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="pt-partners-form-group">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your Full Name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="pt-partners-form-group">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Work Email Address"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="pt-partners-form-group">
+                    <select
+                      name="partnerType"
+                      value={formData.partnerType}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="" disabled>
+                        Partnership Type
+                      </option>
+                      <option value="strategic">Strategic Partner</option>
+                      <option value="technology">Technology Partner</option>
+                      <option value="training">Training & Certification</option>
+                      <option value="reseller">Reseller / Referral</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div className="pt-partners-form-group">
+                    <textarea
+                      name="message"
+                      placeholder="Briefly describe your company and what you're looking to achieve..."
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows={3}
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="btn-primary-pt pt-partners-form-submit"
+                  >
+                    {PARTNERS.becomePartner.cta} →
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <CallToAction />
+      </main>
+
+      <Footer />
+    </>
+  );
+}
+
+export default PartnersPage;
+
+====================================================
+FILE: ./src/pages/ServiceDetailPage.jsx
+====================================================
+// ─────────────────────────────────────────────
+//  Page: ServiceDetailPage
+//  Dynamic detail page for each IT service
+// ─────────────────────────────────────────────
+
+import React from "react";
+import { useParams, Link } from "react-router-dom";
+import { SERVICE_DETAILS } from "../data/services-content";
+import { SERVICES } from "../data/content";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import CircuitCanvas from "../components/CircuitCanvas";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import CallToAction from "../components/CallToAction";
+import "../styles/pages.css";
+import "../styles/service-detail.css";
+
+// Helper: given a slug, get the display title from SERVICES list
+function getServiceTitle(slug) {
+  const found = SERVICES.find((s) => s.slug === slug);
+  return found ? `${found.icon} ${found.title}` : slug;
+}
+
+function ServiceDetailPage() {
+  const { serviceSlug } = useParams();
+  const pageRef = useScrollReveal();
+  const service = SERVICE_DETAILS[serviceSlug];
+
+  // ── Not Found ──
+  if (!service) {
+    return (
+      <>
+        <CircuitCanvas />
+        <Navbar />
+        <main className="pt-page">
+          <div className="container py-5 text-center">
+            <p style={{ fontSize: "4rem", marginBottom: "1rem" }}>🔍</p>
+            <h1
+              style={{
+                color: "var(--gold)",
+                fontFamily: "var(--font-display)",
+              }}
+            >
+              Service Not Found
+            </h1>
+            <p style={{ color: "rgba(240,244,255,0.6)", marginBottom: "2rem" }}>
+              The service you're looking for doesn't exist or may have moved.
+            </p>
+            <Link to="/services" className="btn-primary-pt">
+              ← Back to Services
+            </Link>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <CircuitCanvas />
+      <Navbar />
+
+      <main className="pt-page pt-service-detail" ref={pageRef}>
+        {/* ── Hero ── */}
+        <section className="pt-service-hero">
+          <div className="container">
+            <div className="pt-service-hero__content">
+              <Link to="/services" className="pt-service-hero__back">
+                ← Back to Services
+              </Link>
+              <span className="pt-service-hero__icon">{service.icon}</span>
+              <h1>{service.title}</h1>
+              <p className="pt-service-hero__tagline">"{service.tagline}"</p>
+              <p className="pt-service-hero__description">
+                {service.fullDescription}
+              </p>
+
+              {/* Key Highlights */}
+              <div className="pt-service-highlights">
+                {service.highlights.map((h, i) => (
+                  <div key={i} className="pt-service-highlight">
+                    <div className="pt-service-highlight__icon">{h.icon}</div>
+                    <div className="pt-service-highlight__value">{h.value}</div>
+                    <div className="pt-service-highlight__label">{h.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Main Content + Sidebar ── */}
+        <section className="pt-service-content">
+          <div className="container">
+            <div className="row">
+              {/* ── Left: Main Content ── */}
+              <div className="col-lg-8">
+                {/* What We Offer */}
+                <div className="pt-service-section">
+                  <h2 className="pt-service-section__title">
+                    🛠️ What We Offer
+                  </h2>
+                  <div className="row g-3">
+                    {service.whatWeOffer.map((item, i) => (
+                      <div key={i} className="col-md-6">
+                        <div className="pt-service-offer-card reveal">
+                          <h4>{item.title}</h4>
+                          <p>{item.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Our Process */}
+                <div className="pt-service-section">
+                  <h2 className="pt-service-section__title">⚙️ Our Process</h2>
+                  <div className="pt-service-process-steps reveal">
+                    {service.process.map((step, i) => (
+                      <div key={i} className="pt-service-process-step">
+                        <div className="pt-service-process-step__number">
+                          {step.step}
+                        </div>
+                        <h4>{step.title}</h4>
+                        <p>{step.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Expected Outcomes */}
+                <div className="pt-service-section">
+                  <h2 className="pt-service-section__title">
+                    🎯 Expected Outcomes
+                  </h2>
+                  <ul className="pt-service-outcomes reveal">
+                    {service.outcomes.map((outcome, i) => (
+                      <li key={i}>{outcome}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Technologies */}
+                <div className="pt-service-section">
+                  <h2 className="pt-service-section__title">
+                    🧰 Technologies & Tools
+                  </h2>
+                  <div className="pt-service-tech-grid reveal">
+                    {service.technologies.map((tech, i) => (
+                      <span key={i} className="pt-service-tech-badge">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Case Study */}
+                <div className="pt-service-section">
+                  <h2 className="pt-service-section__title">
+                    📌 Client Success Story
+                  </h2>
+                  <div className="pt-service-case-study reveal">
+                    <div className="pt-service-case-study__label">
+                      Case Study
+                    </div>
+                    <div className="pt-service-case-study__client">
+                      🏢 {service.caseStudy.client}
+                    </div>
+                    <p className="pt-service-case-study__result">
+                      {service.caseStudy.result}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* ── Right: Sidebar ── */}
+              <div className="col-lg-4">
+                <div className="pt-service-sidebar">
+                  {/* CTA Card */}
+                  <div className="pt-service-sidebar-card">
+                    <h4>Ready to Get Started?</h4>
+                    <p style={{ marginBottom: "20px" }}>
+                      Talk to one of our specialists about how {service.title}{" "}
+                      can drive results for your organisation.
+                    </p>
+                    <div className="pt-service-cta">
+                      <a
+                        href={`mailto:info@pentatech.co.ke?subject=${encodeURIComponent(service.contactSubject)}`}
+                        className="btn-primary-pt"
+                      >
+                        📧 Email Us
+                      </a>
+                      <Link to="/#contact" className="btn-secondary-pt">
+                        Request a Consultation
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Related Services */}
+                  {service.relatedServices &&
+                    service.relatedServices.length > 0 && (
+                      <div className="pt-service-sidebar-card">
+                        <h4>Related Services</h4>
+                        <ul className="pt-service-related-list">
+                          {service.relatedServices.map((slug, i) => (
+                            <li key={i}>
+                              <Link to={`/services/${slug}`}>
+                                {getServiceTitle(slug)}
+                                <span>→</span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                  {/* All Services */}
+                  <div className="pt-service-sidebar-card">
+                    <h4>All Services</h4>
+                    <ul className="pt-service-related-list">
+                      {SERVICES.map((s) => (
+                        <li key={s.slug}>
+                          <Link
+                            to={`/services/${s.slug}`}
+                            style={
+                              s.slug === serviceSlug
+                                ? { color: "var(--gold)", fontWeight: 600 }
+                                : {}
+                            }
+                          >
+                            {s.icon} {s.title}
+                            {s.slug !== serviceSlug && <span>→</span>}
+                            {s.slug === serviceSlug && (
+                              <span style={{ color: "var(--gold)" }}>
+                                Current
+                              </span>
+                            )}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <CallToAction />
+      </main>
+
+      <Footer />
+    </>
+  );
+}
+
+export default ServiceDetailPage;
+
+====================================================
 FILE: ./src/pages/ServicesPage.jsx
 ====================================================
 // ─────────────────────────────────────────────
@@ -20447,6 +22800,7 @@ FILE: ./src/pages/ServicesPage.jsx
 // ─────────────────────────────────────────────
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { SERVICES } from "../data/content";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import CircuitCanvas from "../components/CircuitCanvas";
@@ -20456,14 +22810,14 @@ import "../styles/pages.css";
 import CallToAction from "../components/CallToAction";
 
 function ServicesPage() {
-  const sectionRef = useScrollReveal();
+  const pageRef = useScrollReveal();
 
   return (
     <>
       <CircuitCanvas />
       <Navbar />
 
-      <main className="pt-page">
+      <main className="pt-page" ref={pageRef}>
         {/* Hero Section */}
         <section className="pt-page-hero">
           <div className="container">
@@ -20475,10 +22829,10 @@ function ServicesPage() {
         </section>
 
         {/* Services Grid */}
-        <section className="pt-page-services" ref={sectionRef}>
+        <section className="pt-page-services">
           <div className="container">
             <div className="row">
-              {SERVICES.map((service, index) => (
+              {SERVICES.map((service) => (
                 <div key={service.title} className="col-lg-6 mb-4">
                   <div className="pt-page-service-card reveal">
                     <div className="pt-page-service-card__icon">
@@ -20492,9 +22846,12 @@ function ServicesPage() {
                         <li>✓ Expert consultants</li>
                         <li>✓ 24/7 support available</li>
                       </ul>
-                      <a href="/#contact" className="btn-primary-pt">
-                        Learn More
-                      </a>
+                      <Link
+                        to={`/services/${service.slug}`}
+                        className="btn-primary-pt"
+                      >
+                        Learn More →
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -21573,6 +23930,659 @@ FILE: ./src/styles/animations.css
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0);    }
+}
+
+====================================================
+FILE: ./src/styles/blog.css
+====================================================
+/* ─────────────────────────────────────────────
+   PentaTech — Blog Page Styles
+   ───────────────────────────────────────────── */
+
+/* ── Category Filter Bar ── */
+.pt-blog-filter {
+  padding: 30px 24px 0;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-blog-filter__bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pt-blog-filter__btn {
+  padding: 8px 22px;
+  border-radius: 30px;
+  border: 1px solid rgba(94, 184, 212, 0.3);
+  background: transparent;
+  color: rgba(240, 244, 255, 0.6);
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  letter-spacing: 0.3px;
+}
+
+.pt-blog-filter__btn:hover {
+  border-color: var(--sky);
+  color: var(--sky);
+}
+
+.pt-blog-filter__btn.active {
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  border-color: transparent;
+  color: var(--dark-navy);
+}
+
+/* ── Featured Posts ── */
+.pt-blog-featured {
+  padding: 60px 24px 40px;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-blog-section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pt-blog-section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(201, 146, 42, 0.4), transparent);
+}
+
+.pt-blog-featured-card {
+  background: rgba(26, 39, 68, 0.85);
+  border: 1px solid rgba(94, 184, 212, 0.2);
+  border-radius: 20px;
+  padding: 40px 36px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.pt-blog-featured-card::before {
+  content: "FEATURED";
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  color: var(--dark-navy);
+  border-radius: 20px;
+}
+
+.pt-blog-featured-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(201, 146, 42, 0.45);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+}
+
+.pt-blog-card__category-pill {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: rgba(94, 184, 212, 0.12);
+  border: 1px solid rgba(94, 184, 212, 0.3);
+  color: var(--sky);
+  margin-bottom: 18px;
+}
+
+.pt-blog-featured-card h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  color: var(--white);
+  line-height: 1.35;
+  margin-bottom: 16px;
+  transition: color var(--transition-fast);
+}
+
+.pt-blog-featured-card:hover h2 {
+  color: var(--gold);
+}
+
+.pt-blog-card__excerpt {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(240, 244, 255, 0.65);
+  margin-bottom: 28px;
+  flex: 1;
+}
+
+.pt-blog-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-top: 1px solid rgba(94, 184, 212, 0.1);
+  padding-top: 20px;
+  margin-top: auto;
+}
+
+.pt-blog-card__author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pt-blog-card__author-avatar {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.pt-blog-card__author-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.pt-blog-card__author-role {
+  font-size: 0.75rem;
+  color: rgba(240, 244, 255, 0.5);
+}
+
+.pt-blog-card__info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pt-blog-card__date,
+.pt-blog-card__read-time {
+  font-size: 0.78rem;
+  color: rgba(240, 244, 255, 0.45);
+}
+
+.pt-blog-card__read-time {
+  color: var(--sky);
+  font-weight: 600;
+}
+
+.pt-blog-card__read-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap var(--transition-fast);
+}
+
+.pt-blog-card__read-link:hover {
+  gap: 10px;
+  color: var(--gold);
+}
+
+/* ── Post Grid ── */
+.pt-blog-grid {
+  padding: 40px 24px 80px;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-blog-post-card {
+  background: rgba(26, 39, 68, 0.8);
+  border: 1px solid rgba(94, 184, 212, 0.15);
+  border-radius: 14px;
+  padding: 28px 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  position: relative;
+  backdrop-filter: blur(8px);
+}
+
+.pt-blog-post-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 146, 42, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.pt-blog-post-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--white);
+  line-height: 1.4;
+  margin-bottom: 14px;
+  transition: color var(--transition-fast);
+}
+
+.pt-blog-post-card:hover h3 {
+  color: var(--gold);
+}
+
+.pt-blog-post-card .pt-blog-card__excerpt {
+  font-size: 0.88rem;
+}
+
+/* ── Tags ── */
+.pt-blog-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.pt-blog-card__tag {
+  font-size: 0.72rem;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: rgba(201, 146, 42, 0.1);
+  border: 1px solid rgba(201, 146, 42, 0.2);
+  color: rgba(201, 146, 42, 0.85);
+}
+
+/* ── Newsletter Banner ── */
+.pt-blog-newsletter {
+  padding: 70px 24px;
+  background: linear-gradient(135deg, var(--mid-navy), var(--dark-navy));
+  border-top: 1px solid rgba(201, 146, 42, 0.25);
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.pt-blog-newsletter__inner {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.pt-blog-newsletter h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.pt-blog-newsletter p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(240, 244, 255, 0.7);
+  margin-bottom: 30px;
+}
+
+.pt-blog-newsletter__form {
+  display: flex;
+  gap: 10px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.pt-blog-newsletter__input {
+  flex: 1;
+  padding: 13px 18px;
+  background: rgba(240, 244, 255, 0.05);
+  border: 1px solid rgba(94, 184, 212, 0.3);
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.pt-blog-newsletter__input::placeholder {
+  color: rgba(240, 244, 255, 0.35);
+}
+
+.pt-blog-newsletter__input:focus {
+  border-color: var(--gold);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pt-blog-newsletter__form {
+    flex-direction: column;
+  }
+
+  .pt-blog-featured-card {
+    padding: 28px 22px;
+  }
+
+  .pt-blog-card__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+
+====================================================
+FILE: ./src/styles/contact.css
+====================================================
+/* ─────────────────────────────────────────────
+   PentaTech — Contact Page Styles
+   ───────────────────────────────────────────── */
+
+/* ── Layout ── */
+.pt-contact-body {
+  padding: 70px 24px 80px;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Form Card ── */
+.pt-contact-form-card {
+  background: rgba(26, 39, 68, 0.85);
+  border: 1px solid rgba(94, 184, 212, 0.2);
+  border-radius: 20px;
+  padding: 44px 40px;
+  backdrop-filter: blur(12px);
+}
+
+.pt-contact-form-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.pt-contact-form-card > p {
+  font-size: 0.92rem;
+  color: rgba(240, 244, 255, 0.55);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* ── Form Elements ── */
+.pt-contact-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.pt-contact-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.pt-contact-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(240, 244, 255, 0.6);
+  text-transform: uppercase;
+}
+
+.pt-contact-group input,
+.pt-contact-group select,
+.pt-contact-group textarea {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(240, 244, 255, 0.04);
+  border: 1px solid rgba(94, 184, 212, 0.2);
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 0.92rem;
+  font-family: var(--font-body);
+  outline: none;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.pt-contact-group input::placeholder,
+.pt-contact-group textarea::placeholder {
+  color: rgba(240, 244, 255, 0.25);
+}
+
+.pt-contact-group input:focus,
+.pt-contact-group select:focus,
+.pt-contact-group textarea:focus {
+  border-color: var(--gold);
+  background: rgba(240, 244, 255, 0.07);
+}
+
+.pt-contact-group input.error,
+.pt-contact-group select.error,
+.pt-contact-group textarea.error {
+  border-color: #e05a5a;
+}
+
+.pt-contact-group__error {
+  font-size: 0.78rem;
+  color: #e07a7a;
+  margin-top: -2px;
+}
+
+.pt-contact-group select option {
+  background: var(--dark-navy);
+  color: var(--white);
+}
+
+.pt-contact-group textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* ── Submit ── */
+.pt-contact-submit {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pt-contact-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Success State ── */
+.pt-contact-success {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.pt-contact-success__icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+  display: block;
+}
+
+.pt-contact-success h3 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.pt-contact-success p {
+  font-size: 1rem;
+  color: rgba(240, 244, 255, 0.65);
+  line-height: 1.7;
+  max-width: 400px;
+  margin: 0 auto 28px;
+}
+
+/* ── Sidebar ── */
+.pt-contact-sidebar {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pt-contact-info-card {
+  background: rgba(26, 39, 68, 0.85);
+  border: 1px solid rgba(201, 146, 42, 0.2);
+  border-radius: 16px;
+  padding: 28px 26px;
+  backdrop-filter: blur(10px);
+}
+
+.pt-contact-info-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+/* ── Info Items ── */
+.pt-contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.pt-contact-info-item:last-child {
+  margin-bottom: 0;
+}
+
+.pt-contact-info-item__icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(
+    135deg,
+    rgba(201, 146, 42, 0.15),
+    rgba(94, 184, 212, 0.15)
+  );
+  border: 1px solid rgba(201, 146, 42, 0.25);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.pt-contact-info-item__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(240, 244, 255, 0.4);
+  margin-bottom: 4px;
+}
+
+.pt-contact-info-item__value {
+  font-size: 0.92rem;
+  color: rgba(240, 244, 255, 0.85);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  line-height: 1.4;
+  display: block;
+}
+
+a.pt-contact-info-item__value:hover {
+  color: var(--gold);
+}
+
+/* ── Hours ── */
+.pt-contact-hours {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pt-contact-hours li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(94, 184, 212, 0.07);
+  font-size: 0.85rem;
+  color: rgba(240, 244, 255, 0.65);
+}
+
+.pt-contact-hours li:last-child {
+  border-bottom: none;
+}
+
+.pt-contact-hours span:last-child {
+  color: var(--sky);
+  font-weight: 600;
+}
+
+/* ── WhatsApp CTA ── */
+.pt-contact-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  text-decoration: none;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+  cursor: pointer;
+}
+
+.pt-contact-whatsapp:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .pt-contact-sidebar {
+    position: static;
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pt-contact-form-card {
+    padding: 28px 22px;
+  }
+
+  .pt-contact-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 ====================================================
@@ -23469,6 +26479,785 @@ FILE: ./src/styles/pages.css
   color: inherit;
 }
 ====================================================
+FILE: ./src/styles/partners.css
+====================================================
+/* ─────────────────────────────────────────────
+   PentaTech — Partners Page Styles
+   ───────────────────────────────────────────── */
+
+/* ── Intro ── */
+.pt-partners-intro {
+  padding: 60px 24px;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-partners-intro__text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(240, 244, 255, 0.8);
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ── Stats ── */
+.pt-partners-stats {
+  padding: 50px 24px;
+  background: var(--mid-navy);
+  border-top: 1px solid rgba(94, 184, 212, 0.15);
+  border-bottom: 1px solid rgba(94, 184, 212, 0.15);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-partners-stat {
+  text-align: center;
+  padding: 20px;
+}
+
+.pt-partners-stat__number {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.pt-partners-stat__label {
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(240, 244, 255, 0.7);
+}
+
+/* ── Tier Sections ── */
+.pt-partners-tier {
+  padding: 70px 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.pt-partners-tier:nth-child(odd) {
+  background: var(--dark-navy);
+}
+
+.pt-partners-tier:nth-child(even) {
+  background: var(--mid-navy);
+}
+
+.pt-partners-tier__header {
+  margin-bottom: 50px;
+}
+
+.pt-partners-tier__badge {
+  display: inline-block;
+  padding: 5px 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(201, 146, 42, 0.15),
+    rgba(94, 184, 212, 0.15)
+  );
+  border: 1px solid rgba(201, 146, 42, 0.4);
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.pt-partners-tier__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.pt-partners-tier__desc {
+  font-size: 1rem;
+  color: rgba(240, 244, 255, 0.6);
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+/* ── Partner Card ── */
+.pt-partners-card {
+  background: rgba(26, 39, 68, 0.85);
+  border: 1px solid rgba(94, 184, 212, 0.2);
+  border-radius: 16px;
+  padding: 32px 28px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.pt-partners-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--sky));
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.pt-partners-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(201, 146, 42, 0.5);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+.pt-partners-card:hover::before {
+  opacity: 1;
+}
+
+.pt-partners-card__top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.pt-partners-card__logo {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(
+    135deg,
+    rgba(201, 146, 42, 0.15),
+    rgba(94, 184, 212, 0.15)
+  );
+  border: 1px solid rgba(201, 146, 42, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.pt-partners-card__name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.pt-partners-card__category {
+  font-size: 0.78rem;
+  color: var(--sky);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.pt-partners-card__desc {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: rgba(240, 244, 255, 0.65);
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.pt-partners-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pt-partners-card__badge {
+  padding: 3px 12px;
+  background: rgba(94, 184, 212, 0.1);
+  border: 1px solid rgba(94, 184, 212, 0.25);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: var(--sky);
+  font-weight: 600;
+}
+
+/* ── Become a Partner CTA ── */
+.pt-partners-cta {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, var(--mid-navy), var(--dark-navy));
+  border-top: 1px solid rgba(201, 146, 42, 0.25);
+  position: relative;
+  z-index: 2;
+}
+
+.pt-partners-cta__inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.pt-partners-cta__left h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--gold);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.pt-partners-cta__left p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(240, 244, 255, 0.75);
+  margin-bottom: 28px;
+}
+
+.pt-partners-cta__benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pt-partners-cta__benefits li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+  color: rgba(240, 244, 255, 0.75);
+  line-height: 1.5;
+}
+
+.pt-partners-cta__benefits li::before {
+  content: "✦";
+  color: var(--gold);
+  font-size: 0.7rem;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.pt-partners-cta__form {
+  background: rgba(26, 39, 68, 0.9);
+  border: 1px solid rgba(201, 146, 42, 0.3);
+  border-radius: 20px;
+  padding: 36px 32px;
+  backdrop-filter: blur(12px);
+}
+
+.pt-partners-cta__form h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.pt-partners-form-group {
+  margin-bottom: 16px;
+}
+
+.pt-partners-form-group input,
+.pt-partners-form-group select,
+.pt-partners-form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(240, 244, 255, 0.05);
+  border: 1px solid rgba(94, 184, 212, 0.25);
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  transition: border-color var(--transition-fast);
+  outline: none;
+}
+
+.pt-partners-form-group input::placeholder,
+.pt-partners-form-group textarea::placeholder {
+  color: rgba(240, 244, 255, 0.35);
+}
+
+.pt-partners-form-group input:focus,
+.pt-partners-form-group select:focus,
+.pt-partners-form-group textarea:focus {
+  border-color: var(--gold);
+}
+
+.pt-partners-form-group select option {
+  background: var(--dark-navy);
+  color: var(--white);
+}
+
+.pt-partners-form-group textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.pt-partners-form-submit {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .pt-partners-cta__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pt-partners-tier {
+    padding: 50px 16px;
+  }
+}
+
+====================================================
+FILE: ./src/styles/service-detail.css
+====================================================
+/* ─────────────────────────────────────────────
+   PentaTech — Service Detail Page Styles
+   ───────────────────────────────────────────── */
+
+.pt-service-detail {
+  padding-top: 80px;
+}
+
+/* ── Hero ── */
+.pt-service-hero {
+  background: linear-gradient(135deg, var(--mid-navy), var(--dark-navy));
+  padding: 60px 24px;
+  border-bottom: 1px solid rgba(94, 184, 212, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.pt-service-hero__content {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pt-service-hero__back {
+  display: inline-block;
+  color: var(--sky);
+  text-decoration: none;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+  transition: color var(--transition-fast);
+}
+
+.pt-service-hero__back:hover {
+  color: var(--gold);
+}
+
+.pt-service-hero__icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+  display: block;
+}
+
+.pt-service-hero__content h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+.pt-service-hero__tagline {
+  font-size: 1.15rem;
+  color: var(--sky);
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.pt-service-hero__description {
+  font-size: 1.05rem;
+  color: rgba(240, 244, 255, 0.75);
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto 32px;
+}
+
+/* ── Highlights Strip ── */
+.pt-service-highlights {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.pt-service-highlight {
+  background: rgba(26, 39, 68, 0.7);
+  border: 1px solid rgba(94, 184, 212, 0.25);
+  border-radius: 12px;
+  padding: 14px 20px;
+  text-align: center;
+  min-width: 150px;
+  backdrop-filter: blur(8px);
+}
+
+.pt-service-highlight__icon {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+.pt-service-highlight__value {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+
+.pt-service-highlight__label {
+  font-size: 0.72rem;
+  color: rgba(240, 244, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── Main Content Layout ── */
+.pt-service-content {
+  padding: 60px 24px;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Section headings ── */
+.pt-service-section {
+  margin-bottom: 50px;
+}
+
+.pt-service-section__title {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  color: var(--white);
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  position: relative;
+}
+
+.pt-service-section__title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--sky));
+  border-radius: 2px;
+}
+
+/* ── What We Offer Cards ── */
+.pt-service-offer-card {
+  background: rgba(26, 39, 68, 0.7);
+  border: 1px solid rgba(94, 184, 212, 0.15);
+  border-radius: 12px;
+  padding: 24px 22px;
+  height: 100%;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.pt-service-offer-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--sky));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-normal);
+}
+
+.pt-service-offer-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 146, 42, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.pt-service-offer-card:hover::before {
+  transform: scaleX(1);
+}
+
+.pt-service-offer-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.pt-service-offer-card p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgba(240, 244, 255, 0.65);
+  margin: 0;
+}
+
+/* ── Process Steps ── */
+.pt-service-process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.pt-service-process-step {
+  background: rgba(26, 39, 68, 0.6);
+  border: 1px solid rgba(94, 184, 212, 0.15);
+  border-radius: 12px;
+  padding: 28px 22px;
+  position: relative;
+  transition: border-color var(--transition-normal);
+}
+
+.pt-service-process-step:hover {
+  border-color: var(--gold);
+}
+
+.pt-service-process-step__number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.pt-service-process-step h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.pt-service-process-step p {
+  font-size: 0.875rem;
+  color: rgba(240, 244, 255, 0.55);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Outcomes ── */
+.pt-service-outcomes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pt-service-outcomes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.92rem;
+  color: rgba(240, 244, 255, 0.8);
+  line-height: 1.5;
+  background: rgba(26, 39, 68, 0.5);
+  border: 1px solid rgba(94, 184, 212, 0.1);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.pt-service-outcomes li::before {
+  content: "✓";
+  color: var(--gold);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Technologies ── */
+.pt-service-tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pt-service-tech-badge {
+  padding: 6px 16px;
+  background: rgba(94, 184, 212, 0.08);
+  border: 1px solid rgba(94, 184, 212, 0.2);
+  border-radius: 30px;
+  font-size: 0.82rem;
+  color: var(--sky);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.pt-service-tech-badge:hover {
+  background: rgba(94, 184, 212, 0.15);
+  border-color: var(--sky);
+  color: var(--white);
+}
+
+/* ── Case Study ── */
+.pt-service-case-study {
+  background: linear-gradient(
+    135deg,
+    rgba(201, 146, 42, 0.08),
+    rgba(94, 184, 212, 0.08)
+  );
+  border: 1px solid rgba(201, 146, 42, 0.3);
+  border-radius: 16px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pt-service-case-study::before {
+  content: "❝";
+  position: absolute;
+  top: 10px;
+  right: 24px;
+  font-size: 6rem;
+  color: rgba(201, 146, 42, 0.07);
+  font-family: serif;
+  line-height: 1;
+}
+
+.pt-service-case-study__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.pt-service-case-study__client {
+  font-size: 0.85rem;
+  color: var(--sky);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.pt-service-case-study__result {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(240, 244, 255, 0.85);
+  margin: 0;
+}
+
+/* ── Sidebar ── */
+.pt-service-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.pt-service-sidebar-card {
+  background: rgba(26, 39, 68, 0.85);
+  border: 1px solid rgba(201, 146, 42, 0.2);
+  border-radius: 14px;
+  padding: 26px 22px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.pt-service-sidebar-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.pt-service-sidebar-card p {
+  font-size: 0.88rem;
+  color: rgba(240, 244, 255, 0.65);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Related services */
+.pt-service-related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pt-service-related-list li {
+  border-bottom: 1px solid rgba(94, 184, 212, 0.08);
+}
+
+.pt-service-related-list li:last-child {
+  border-bottom: none;
+}
+
+.pt-service-related-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  color: rgba(240, 244, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color var(--transition-fast);
+}
+
+.pt-service-related-list a:hover {
+  color: var(--gold);
+}
+
+.pt-service-related-list a span {
+  color: var(--sky);
+  font-size: 0.85rem;
+}
+
+/* CTA buttons */
+.pt-service-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pt-service-cta .btn-primary-pt,
+.pt-service-cta .btn-secondary-pt {
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .pt-service-sidebar {
+    margin-top: 30px;
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .pt-service-outcomes {
+    grid-template-columns: 1fr;
+  }
+
+  .pt-service-hero__content h1 {
+    font-size: 1.9rem;
+  }
+
+  .pt-service-highlights {
+    justify-content: flex-start;
+  }
+}
+
+====================================================
 FILE: ./src/styles/services.css
 ====================================================
 /* ─────────────────────────────────────────────
@@ -23478,7 +27267,11 @@ FILE: ./src/styles/services.css
 .pt-services {
   position: relative;
   z-index: 1;
-  background: linear-gradient(180deg, var(--dark-navy) 0%, var(--mid-navy) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--dark-navy) 0%,
+    var(--mid-navy) 100%
+  );
   padding: 100px 60px;
 }
 
@@ -23489,15 +27282,16 @@ FILE: ./src/styles/services.css
   padding: 36px 32px;
   position: relative;
   overflow: hidden;
-  transition: transform var(--transition-normal),
-              border-color var(--transition-normal),
-              box-shadow var(--transition-normal);
+  transition:
+    transform var(--transition-normal),
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal);
   cursor: pointer;
   height: 100%;
 }
 
 .pt-services__card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -23512,8 +27306,9 @@ FILE: ./src/styles/services.css
 .pt-services__card:hover {
   transform: translateY(-8px);
   border-color: rgba(94, 184, 212, 0.35);
-  box-shadow: 0 20px 50px rgba(13, 21, 38, 0.8),
-              0 0 30px rgba(94, 184, 212, 0.08);
+  box-shadow:
+    0 20px 50px rgba(13, 21, 38, 0.8),
+    0 0 30px rgba(94, 184, 212, 0.08);
 }
 
 .pt-services__card:hover::before {
@@ -23560,6 +27355,40 @@ FILE: ./src/styles/services.css
   .pt-services {
     padding: 80px 24px 60px;
   }
+}
+
+/* Card as a link */
+.pt-services__card-link {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.pt-services__card-link:hover {
+  color: inherit;
+}
+
+/* Learn More text inside card */
+.pt-services__learn-more {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--sky);
+  letter-spacing: 0.3px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--transition-normal),
+    transform var(--transition-normal),
+    color var(--transition-fast);
+}
+
+.pt-services__card:hover .pt-services__learn-more {
+  opacity: 1;
+  transform: translateY(0);
+  color: var(--gold);
 }
 
 ====================================================
