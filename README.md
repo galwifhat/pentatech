@@ -130,15 +130,10 @@ npm start
 | Blog | `/blog` | Articles with filters |
 
 ## Development
-### Run development server
-
+- Run development server
 ```npm start```
-
-### Build for production
-
+- Build for production
 ```npm run build```
-
-### Run tests
-
+- Run tests
 ```npm test```
 The project has evolved from a single landing page to a full-featured corporate website with comprehensive content management, multi-page navigation, and interactive features.
