@@ -78,56 +78,40 @@ npm start
 
 ## 📦 Key Features
 ### Multi-Page Architecture
-11 distinct pages with React Router
-Dynamic routes for services and courses
-SEO-friendly URLs
+- 11 distinct pages with React Router
+- Dynamic routes for services and courses
+- SEO-friendly URLs
 
-### Core Sections
-Home - Landing page with 3D cube animation
+## Core Sections
 
-About Us - Company history, mission, vision, leadership
+- **Home** — Landing page with 3D cube animation
+- **About Us** — Company history, mission, vision, leadership
+- **Services** — 8 IT service categories with detailed pages
+- **Training** — Certification programs with course details
+- **Why Us** — Values and team information
+- **Partners** — Technology and training partners showcase
+- **Blog** — Articles with category filtering
+- **Contact** — Form with validation and contact information
 
-Services - 8 IT service categories with detailed pages
+## Interactive Features
 
-Training - Certification programs with course details
+- Animated circuit board background (Canvas API)
+- Scroll reveal animations
+- Count-up statistics
+- 3D rotating cube
+- Mobile-responsive navigation
+- Form validation
+- Category filtering (Blog, Training)
 
-Why Us - Values and team information
+## 🛠 Tech Stack
 
-Partners - Technology and training partners showcase
-
-Blog - Articles with category filtering
-
-Contact - Form with validation and contact information
-
-### Interactive Features
-Animated circuit board background (Canvas API)
-
-Scroll reveal animations
-
-Count-up statistics
-
-3D rotating cube
-
-Mobile-responsive navigation
-
-Form validation
-
-Category filtering (Blog, Training)
-
-### 🛠 Tech Stack
-React 18 — Component framework with Router
-
-React Router DOM 7 — Multi-page routing
-
-Bootstrap 5 — Layout grid & utilities
-
-Bootstrap Icons — Icon library
-
-Custom CSS — Design system, animations, 3D effects
-
-Canvas API — Animated circuit board background
-
-Intersection Observer — Scroll animations
+- **React 18** — Component framework with Router
+- **React Router DOM 7** — Multi-page routing
+- **Bootstrap 5** — Layout grid & utilities
+- **Bootstrap Icons** — Icon library
+- **Custom CSS** — Design system, animations, 3D effects
+- **Canvas API** — Animated circuit board background
+- **Intersection Observer** — Scroll animations
 
 ## Pages & Routes
 
