@@ -843,7 +843,7 @@ export const FOOTER_LINKS = {
     { name: "About Us", link: "/about" },
     { name: "Our Partners", link: "/partners" },
     { name: "Blog", link: "/blog" },
-    { name: "Contact", link: "mailto:info@pentatech.co.ke" },
+    { name: "Contact", link: "/contact" },
   ],
 };
 
@@ -898,7 +898,8 @@ export const CUBE_FACES = ["☁️", "🔐", "💻", "📊", "🌐", "⚙️"];
 export const TRAINING_CATEGORIES = {
   corporate: {
     title: "Corporate Training",
-    description: "Custom training solutions designed for organizations to upskill their teams and drive business growth.",
+    description:
+      "Custom training solutions designed for organizations to upskill their teams and drive business growth.",
     icon: "🏢",
     programs: [TRAINING_PROGRAMS[5]], // Corporate Programs
     features: [
@@ -906,12 +907,13 @@ export const TRAINING_CATEGORIES = {
       "On-site or virtual delivery",
       "Team-based learning",
       "Progress tracking",
-      "Post-training support"
-    ]
+      "Post-training support",
+    ],
   },
   bootcamps: {
     title: "Tech Bootcamps",
-    description: "Intensive, immersive training programs designed to quickly upskill individuals and teams in specific technologies.",
+    description:
+      "Intensive, immersive training programs designed to quickly upskill individuals and teams in specific technologies.",
     icon: "⚡",
     programs: [TRAINING_PROGRAMS[6]], // Bootcamps
     features: [
@@ -919,12 +921,13 @@ export const TRAINING_CATEGORIES = {
       "Real-world projects",
       "Industry expert instructors",
       "Career guidance",
-      "Portfolio development"
-    ]
+      "Portfolio development",
+    ],
   },
   workshops: {
     title: "Workshops & Seminars",
-    description: "Short-term focused training sessions on specific technologies, tools, and methodologies.",
+    description:
+      "Short-term focused training sessions on specific technologies, tools, and methodologies.",
     icon: "🎯",
     programs: [], // You can add workshop-specific programs here
     features: [
@@ -932,32 +935,33 @@ export const TRAINING_CATEGORIES = {
       "Hands-on exercises",
       "Expert-led discussions",
       "Networking opportunities",
-      "Take-home materials"
+      "Take-home materials",
     ],
     upcomingWorkshops: [
       {
         title: "Cloud Strategy Workshop",
         date: "April 15, 2024",
         duration: "2 days",
-        description: "Strategic planning for cloud adoption and migration"
+        description: "Strategic planning for cloud adoption and migration",
       },
       {
         title: "Cybersecurity Awareness Seminar",
         date: "April 22, 2024",
         duration: "1 day",
-        description: "Essential security practices for modern organizations"
+        description: "Essential security practices for modern organizations",
       },
       {
         title: "Agile Leadership Workshop",
         date: "May 5, 2024",
         duration: "3 days",
-        description: "Leading agile teams and transformations"
-      }
-    ]
+        description: "Leading agile teams and transformations",
+      },
+    ],
   },
   curriculum: {
     title: "Curriculum Design Services",
-    description: "Professional learning content development for educational institutions, training providers, and corporate L&D departments.",
+    description:
+      "Professional learning content development for educational institutions, training providers, and corporate L&D departments.",
     icon: "📝",
     programs: [TRAINING_PROGRAMS[7]], // Curriculum Design
     features: [
@@ -965,16 +969,16 @@ export const TRAINING_CATEGORIES = {
       "Custom content development",
       "Hands-on lab design",
       "Assessment creation",
-      "Instructor materials"
+      "Instructor materials",
     ],
     process: [
       "Discovery & Requirements Gathering",
       "Curriculum Architecture Design",
       "Content Development",
       "Review & Iteration",
-      "Final Delivery & Training"
-    ]
-  }
+      "Final Delivery & Training",
+    ],
+  },
 };
 
 // You can also add more categories as needed
@@ -982,5 +986,5 @@ export const WORKSHOP_TYPES = {
   technical: "Technical Workshops",
   leadership: "Leadership & Management",
   softSkills: "Professional Skills",
-  certification: "Certification Prep"
+  certification: "Certification Prep",
 };

@@ -1,0 +1,299 @@
+/* ─────────────────────────────────────────────
+   PentaTech — Contact Page Styles
+   ───────────────────────────────────────────── */
+
+/* ── Layout ── */
+.pt-contact-body {
+  padding: 70px 24px 80px;
+  background: var(--dark-navy);
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Form Card ── */
+.pt-contact-form-card {
+  background: rgba(26, 39, 68, 0.85);
+  border: 1px solid rgba(94, 184, 212, 0.2);
+  border-radius: 20px;
+  padding: 44px 40px;
+  backdrop-filter: blur(12px);
+}
+
+.pt-contact-form-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.pt-contact-form-card > p {
+  font-size: 0.92rem;
+  color: rgba(240, 244, 255, 0.55);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* ── Form Elements ── */
+.pt-contact-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.pt-contact-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.pt-contact-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(240, 244, 255, 0.6);
+  text-transform: uppercase;
+}
+
+.pt-contact-group input,
+.pt-contact-group select,
+.pt-contact-group textarea {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(240, 244, 255, 0.04);
+  border: 1px solid rgba(94, 184, 212, 0.2);
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 0.92rem;
+  font-family: var(--font-body);
+  outline: none;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.pt-contact-group input::placeholder,
+.pt-contact-group textarea::placeholder {
+  color: rgba(240, 244, 255, 0.25);
+}
+
+.pt-contact-group input:focus,
+.pt-contact-group select:focus,
+.pt-contact-group textarea:focus {
+  border-color: var(--gold);
+  background: rgba(240, 244, 255, 0.07);
+}
+
+.pt-contact-group input.error,
+.pt-contact-group select.error,
+.pt-contact-group textarea.error {
+  border-color: #e05a5a;
+}
+
+.pt-contact-group__error {
+  font-size: 0.78rem;
+  color: #e07a7a;
+  margin-top: -2px;
+}
+
+.pt-contact-group select option {
+  background: var(--dark-navy);
+  color: var(--white);
+}
+
+.pt-contact-group textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* ── Submit ── */
+.pt-contact-submit {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pt-contact-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Success State ── */
+.pt-contact-success {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.pt-contact-success__icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+  display: block;
+}
+
+.pt-contact-success h3 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.pt-contact-success p {
+  font-size: 1rem;
+  color: rgba(240, 244, 255, 0.65);
+  line-height: 1.7;
+  max-width: 400px;
+  margin: 0 auto 28px;
+}
+
+/* ── Sidebar ── */
+.pt-contact-sidebar {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pt-contact-info-card {
+  background: rgba(26, 39, 68, 0.85);
+  border: 1px solid rgba(201, 146, 42, 0.2);
+  border-radius: 16px;
+  padding: 28px 26px;
+  backdrop-filter: blur(10px);
+}
+
+.pt-contact-info-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+/* ── Info Items ── */
+.pt-contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.pt-contact-info-item:last-child {
+  margin-bottom: 0;
+}
+
+.pt-contact-info-item__icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(
+    135deg,
+    rgba(201, 146, 42, 0.15),
+    rgba(94, 184, 212, 0.15)
+  );
+  border: 1px solid rgba(201, 146, 42, 0.25);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.pt-contact-info-item__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(240, 244, 255, 0.4);
+  margin-bottom: 4px;
+}
+
+.pt-contact-info-item__value {
+  font-size: 0.92rem;
+  color: rgba(240, 244, 255, 0.85);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  line-height: 1.4;
+  display: block;
+}
+
+a.pt-contact-info-item__value:hover {
+  color: var(--gold);
+}
+
+/* ── Hours ── */
+.pt-contact-hours {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pt-contact-hours li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(94, 184, 212, 0.07);
+  font-size: 0.85rem;
+  color: rgba(240, 244, 255, 0.65);
+}
+
+.pt-contact-hours li:last-child {
+  border-bottom: none;
+}
+
+.pt-contact-hours span:last-child {
+  color: var(--sky);
+  font-weight: 600;
+}
+
+/* ── WhatsApp CTA ── */
+.pt-contact-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  text-decoration: none;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+  cursor: pointer;
+}
+
+.pt-contact-whatsapp:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .pt-contact-sidebar {
+    position: static;
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pt-contact-form-card {
+    padding: 28px 22px;
+  }
+
+  .pt-contact-row {
+    grid-template-columns: 1fr;
+  }
+}

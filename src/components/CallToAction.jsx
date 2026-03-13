@@ -34,13 +34,9 @@ function CallToAction() {
             </p>
 
             <div className="pt-cta__buttons reveal">
-              <a
-                href={`mailto:${CONTACT_INFO.email}`}
-                className="btn-primary-pt"
-                aria-label={`Email us at ${CONTACT_INFO.email}`}
-              >
+              <Link to="/contact" className="btn-primary-pt">
                 📧 Contact Us Today
-              </a>
+              </Link>
               <a
                 href={CONTACT_INFO.whatsapp}
                 className="btn-secondary-pt"

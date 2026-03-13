@@ -25,6 +25,7 @@ import TrainingCategoryPage from "./pages/TrainingCategoryPage";
 import WhyUsPage from "./pages/WhyUsPage";
 import CourseDetailPage from "./pages/CourseDetailPage";
 import PartnersPage from "./pages/PartnersPage"; 
+import ContactPage from "./pages/ContactPage";
 import BlogPage from "./pages/BlogPage";     
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services/:serviceSlug" element={<ServiceDetailPage />}/>
+        <Route path="/services/:serviceSlug" element={<ServiceDetailPage />} />
         <Route path="/training" element={<TrainingPage />} />
         <Route
           path="/training/category/:category"
@@ -47,6 +48,7 @@ function App() {
         />
         <Route path="/why-us" element={<WhyUsPage />} />
         <Route path="/partners" element={<PartnersPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />
       </Routes>
     </Router>
